@@ -37,3 +37,6 @@ yarn-debug.log*
 
 # Ignore env
 .env
+
+# Ignore console
+.irb_history
