@@ -1,0 +1,72 @@
+// 用於格線系統
+$sizes:(
+    sm: 480px,
+    md: 768px,
+    lg: 1024px,
+    xl: 1200px
+);
+$col: 12;
+$colp: 15px;
+
+// 顏色
+$primary-color: (
+    100: #DAF9F0,
+    200: #B8F3E1,
+    300: #95EDD2,
+    400: #72E7C4,
+    500: #4FE1B5,
+    600: #28DAA5,
+    700: #1FB588,
+    800: #188E6B,
+    900: #12674D
+);
+
+$accent-color: (
+    100: #FFFDFA,
+    200: #FEF5E6,
+    300: #FDE4BE,
+    400: #FCD497,
+    500: #FBC36F,
+    600: #FAB042,
+    700: #F99E16,
+    800: #DA8506,
+    900: #AE6A05
+);
+
+$alert-color: (
+    100: #FED2DA,
+    200: #FDB9C6,
+    300: #FCA1B1,
+    400: #FC889D,
+    500: #FB6F88,
+    600: #FA516F,
+    700: #F93357,
+    800: #F9163E,
+    900: #E9062F
+);
+
+$grey-color: (
+    100: #FEFEFE,
+    200: #F0F0F0,
+    300: #D4D4D4,
+    400: #B8B8B8,
+    500: #808080,
+    600: #616161,
+    700: #434343,
+    800: #242424,
+    900: #151515
+);
+
+$color-array: (primary: $primary-color, accent: $accent-color, alert: $alert-color, grey: $grey-color);
+
+// 各字型大小
+$font-size: (
+    h1: 2.488rem, // 45px
+    h2: 2.074rem, // 37px
+    h3: 1.728rem, // 31px
+    h4: 1.440rem, // 26px
+    h5: 1.2rem, // 22px
+    content: 1rem, // 18px
+    button: 0.833rem, // 15px
+    caption: 0.694rem // 12px
+)

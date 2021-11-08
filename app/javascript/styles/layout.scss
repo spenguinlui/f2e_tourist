@@ -1,0 +1,25 @@
+@import "helper/variables";
+@import "helper/grid";
+@import 'buttons.scss';
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Futura, "Noto Sans CJK TC", 'Noto Serif TC', sans-serif;
+}
+
+// 文字顏色、背景顏色  .text-primary-100 .bg-alert-900
+@each $name, $item in $color-array {
+  @each $key, $value in $item {
+      .text-#{$name}-#{$key} {
+          color: $value
+      }
+      .bg-#{$name}-#{$key} {
+          background-color: $value
+      }
+  }
+}
+
+.shadow {
+  box-shadow: 0px 2px 10px rgba(128, 128, 128, 0.7);
+}

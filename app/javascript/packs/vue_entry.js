@@ -65,7 +65,7 @@ document.addEventListener('turbolinks:load', () => {
     el: '#app',
     data: () => {
       return {
-        message: "This is first vue"
+        message: "開始您的旅程"
       }
     },
     methods: {
