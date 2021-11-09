@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   # 首頁-用來放 vue 實體，畫面交給 vue 處理
   root 'home#index'
+  # 讓所有 path 都掛回首頁，再交給 vue router 去轉
+  get '/*path', to: 'home#index'
 
   # 前台皆由 vue 呼叫 api
   namespace :api do
