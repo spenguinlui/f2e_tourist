@@ -60,13 +60,11 @@ $grey-color: (
 $color-array: (primary: $primary-color, accent: $accent-color, alert: $alert-color, grey: $grey-color);
 
 // 各字型大小
-$font-size: (
-    h1: 2.488rem, // 45px
-    h2: 2.074rem, // 37px
-    h3: 1.728rem, // 31px
-    h4: 1.440rem, // 26px
-    h5: 1.2rem, // 22px
-    content: 1rem, // 18px
-    button: 0.833rem, // 15px
-    caption: 0.694rem // 12px
-)
+$font-size-h1: 2.488rem; // 45px
+$font-size-h2: 2.074rem; // 37px
+$font-size-h3: 1.728rem; // 31px
+$font-size-h4: 1.440rem; // 26px
+$font-size-h5: 1.2rem; // 22px
+$font-size-content: 1rem; // 18px
+$font-size-button: 0.833rem; // 15px
+$font-size-caption: 0.694rem; // 12px

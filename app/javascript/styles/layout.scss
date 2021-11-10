@@ -1,25 +1,267 @@
+@import "reset";
 @import "helper/variables";
 @import "helper/grid";
 @import 'buttons.scss';
 
 * {
-  margin: 0;
   box-sizing: border-box;
   font-family: Futura, "Noto Sans CJK TC", 'Noto Serif TC', sans-serif;
 }
+%flex-row-center-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-size: $font-size-h1;
+  line-height: $font-size-h1 * 1.2;
+  letter-spacing: 0.12em;
+}
+h2 {
+  font-size: $font-size-h2;
+  line-height: $font-size-h2 * 1.2;
+  letter-spacing: 0.12em;
+}
+h3 {
+  font-size: $font-size-h3;
+  line-height: $font-size-h3 * 1.2;
+  letter-spacing: 0.12em;
+}
+h4 {
+  font-size: $font-size-h4;
+  line-height: $font-size-h4 * 1.2;
+  letter-spacing: 0.12em;
+}
+h5 {
+  font-size: $font-size-h5;
+  line-height: $font-size-h5 * 1.2;
+  letter-spacing: 0.12em;
+}
+.text-b {
+  font-weight: bold;
+}
+
+// RWD
+@mixin pad {
+  @media screen and (min-width: 481px) and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media(max-width: 480px){
+    @content;
+  }
+}
+
+.search-bar {
+  background-color: map-get($grey-color, 100);
+  color: map-get($grey-color, 500);
+  border-radius: 61px;
+  @extend %flex-row-center-center;
+  justify-content: space-between;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.05em;
+}
+.search-bar-xl {
+  width: 562px;
+  height: 74px;
+  padding: 18px 40px;
+}
+.search-bar-s {
+  width: 271px;
+  height: 31px;
+  padding: 18px 16px;
+}
+
+.home-benner {
+  height: 686px;
+  background-image: url('../images/home-benner.png');
+  @extend %flex-row-center-center;
+}
+
+.home-section {
+
+}
+.home-theme {
+
+}
+
+nav {
+  width: 100%;
+  height: 60px;
+  background-color: map-get($grey-color, 200);
+  @extend %flex-row-center-center;
+  .nav {
+    @extend %flex-row-center-center;
+    justify-content: space-between;
+    .nav-block {
+      @extend %flex-row-center-center;
+      .nav-item {
+        margin: 0 12px;
+      }
+    }
+  }
+}
+
+.container-fluid {
+  width: 100%;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  .container {
+    // min-height: 600px;    // 應該不用設定，內容會撐，開發 footer 先頂一下
+    padding: 35px 150px;
+  }
+}
+
+// 共用大小 - 圖片寫在元件內
+.class-benner {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  height: 172px;
+}
+
+.benner-container {
+  .title {
+    color: map-get($grey-color, 100);
+  }
+  .benner-btn-container {
+    @extend %flex-row-center-center;
+    justify-content: space-between;
+    margin-top: 3px;
+    .left-btn, .right-btn {
+      @extend %flex-row-center-center;
+    }
+    .left-btn > div:nth-child(2), .right-btn > div:nth-child(2) {
+      margin-left: 20px
+    }
+  }
+}
+.select-area-block {
+  width: 390px;
+  padding: 28px 24px;
+  position: absolute;
+  left: 0;
+  top: 40px;
+  background-color: map-get($grey-color, 100);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  .area {
+    color: map-get($grey-color, 700);
+    padding-top: 12px;
+    .v-area {
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 14px;
+    }
+    .area-block {
+      border-bottom: 1px solid map-get($grey-color, 300);
+      padding-bottom: 15px;
+      .area-title {
+        @extend %flex-row-center-center;
+        justify-content: start;
+        padding: 4px 0 7px 0;
+        .title-text {
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 22px;
+        }
+        .title-icon {
+          margin-left: 8px;
+          // 以下三角型設定
+          width: 0;
+          height: 0;
+          transform: rotate(90deg); // 控制去移掉這個
+          border-style: solid;
+          border-width: 6px 0 6px 10px;
+          border-color: transparent transparent transparent map-get($grey-color, 600);
+        }
+      }
+      .area-list {
+        @extend %flex-row-center-center;
+        flex-wrap: wrap;
+        justify-content: start;
+        .area-item {
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 20px;
+          letter-spacing: 0.05em;
+          margin-right: 19px;
+        }
+      }
+    }
+  }
+}
+
+
+
 
 // 文字顏色、背景顏色  .text-primary-100 .bg-alert-900
 @each $name, $item in $color-array {
   @each $key, $value in $item {
-      .text-#{$name}-#{$key} {
-          color: $value
-      }
-      .bg-#{$name}-#{$key} {
-          background-color: $value
-      }
+    .text-#{$name}-#{$key} {
+      color: $value
+    }
+    .bg-#{$name}-#{$key} {
+      background-color: $value
+    }
   }
 }
 
 .shadow {
   box-shadow: 0px 2px 10px rgba(128, 128, 128, 0.7);
+}
+.relative {
+  position: relative;
+}
+
+footer {
+  width: 100%;
+  height: 108px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: map-get($primary-color, 600);
+  @extend %flex-row-center-center;
+  .footer {
+    width: 80%;
+    color: map-get($grey-color, 100);
+    @extend %flex-row-center-center;
+    justify-content: space-between;
+    .footer-brand {
+      @extend %flex-row-center-center;
+      .footer-icon {
+        @extend %flex-row-center-center;
+        margin-top: 8px;
+        img {
+          margin-right: 6px;
+        }
+      }
+      flex-direction: column;
+    }
+    .footer-link {
+      width: 432px;
+      @extend %flex-row-center-center;
+      justify-content: space-between;
+      .footer-item {
+        @extend %flex-row-center-center;
+        flex-direction: column;
+        a {
+          margin-bottom: 8px;
+          &:visited {
+            color: map-get($grey-color, 100);;
+          }
+        }
+      }
+    }
+  }
 }

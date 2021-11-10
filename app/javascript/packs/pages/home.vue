@@ -1,7 +1,8 @@
 <template>
   <div>
-    <p>{{ text }}</p>
-    <HomeBanner/>
+    <div class="home-benner">
+      <GlobalSearch :size="'xl'"/>
+    </div>
     <div>
       <h5>熱門景點</h5>
       <Card/><Card/><Card/><Card/>
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-import HomeBanner from '../components/home_benner.vue';
+import GlobalSearch from '../components/global_search.vue';
 import Card from '../components/card.vue';
 
 export default {
@@ -27,7 +28,7 @@ export default {
     }
   },
   components: {
-    HomeBanner,
+    GlobalSearch,
     Card
   }
 }

@@ -1,12 +1,21 @@
 <template>
-  <div>
-    <router-link :to="{ name: 'home' }">home</router-link>
-    <GlobalSearch/>
-    <router-link :to="{ name: 'scenicspots' }">找景點</router-link>
-    <router-link :to="{ name: 'activities' }">找活動</router-link>
-    <router-link :to="{ name: 'hotels' }">找飯店</router-link>
-    <router-link :to="{ name: 'restaurants' }">找餐廳</router-link>
-  </div>
+  <nav>
+    <div class="nav">
+      <div class="nav-block">
+        <router-link class="nav-item btn-icon-text" :to="{ name: 'home' }"><img src="../../images/logo.svg" alt="首頁Logo"></router-link>
+        <div class="nav-item">
+          <GlobalSearch :size="'s'"/>
+        </div>
+      </div>
+      <div class="nav-block">
+        <router-link class="nav-item btn-icon-text btn-outline" :to="{ name: 'scenicspots' }">找景點<img src="../../images/icon/tour.svg" alt="景點icon"></router-link>
+        <!-- <router-link class="nav-item btn-icon-text btn-outline" :to="{ name: 'activities' }">找活動<img src="../../images/icon/tour.svg" alt="活動icon"></router-link> -->
+        <router-link class="nav-item btn-icon-text btn-outline" :to="{ name: 'hotels' }">找飯店<img src="../../images/icon/bed.svg" alt="飯店icon"></router-link>
+        <router-link class="nav-item btn-icon-text btn-outline" :to="{ name: 'restaurants' }">找餐廳<img src="../../images/icon/food.svg" alt="住宿icon"></router-link>
+        <router-link class="nav-item btn-icon-text btn-filled" :to="{ name: 'favorites' }">我的旅程</router-link>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>

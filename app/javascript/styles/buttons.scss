@@ -5,7 +5,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: map-get($font-size, button);
+  font-size: $font-size-button;
 }
 
 // 先用於 header、buttom-m、content
@@ -22,6 +22,12 @@
   // height: 38px;
   border-radius: 63px;
   padding: 9px 21px;
+  img {
+    svg {
+      fill: map-get($primary-color, 700);
+    }
+    margin-left: 9px;
+  }
 }
 .btn-icon {
   @extend %btn;
@@ -33,6 +39,8 @@
 .btn-choose {
   @extend %btn;
   width: 271px;
+  border-radius: 63px;
+  align-items: start;
   padding: 8px 12px 8px 16px;
 }
 
@@ -40,31 +48,43 @@
   background-color: map-get($primary-color, 700);
   color: map-get($grey-color, 100);
   border: 1px solid map-get($primary-color, 700);
+  svg {
+    fill: map-get($grey-color, 100);
+  }
   &:hover {
-      background-color: map-get($primary-color, 800);
-      border: 1px solid map-get($primary-color, 800);
+    background-color: map-get($primary-color, 800);
+    border: 1px solid map-get($primary-color, 800);
   }
   &:focus {
-      box-shadow: inset 0px 0px 4px map-get($grey-color, 100);
+    box-shadow: inset 0px 0px 4px map-get($grey-color, 100);
   }
   &:disabled {
-      background-color: map-get($grey-color, 300);
-      border: 1px solid map-get($grey-color, 300);
+    background-color: map-get($grey-color, 300);
+    border: 1px solid map-get($grey-color, 300);
   }
+  &:visited {
+		color: map-get($grey-color, 100);
+	}
 }
 .btn-outline {
   background-color: map-get($grey-color, 100);
   color:  map-get($primary-color, 700);
   border: 1px solid map-get($primary-color, 700);
+  svg {
+    fill: map-get($primary-color, 700);
+  }
   &:hover {
-      background-color: map-get($primary-color, 100);
+    background-color: map-get($primary-color, 100);
   }
   &:focus {
-      background-color: map-get($primary-color, 100);
-      box-shadow: inset 0px 0px 5px map-get($primary-color, 500);
+    background-color: map-get($primary-color, 100);
+    box-shadow: inset 0px 0px 5px map-get($primary-color, 500);
   }
   &:disabled {
-      background-color: map-get($grey-color, 100);
-      border: 1px solid map-get($grey-color, 300);
+    background-color: map-get($grey-color, 100);
+    border: 1px solid map-get($grey-color, 300);
   }
+  &:visited {
+		color: map-get($primary-color, 700);
+	}
 }
