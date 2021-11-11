@@ -1,77 +1,53 @@
 @import "reset";
 @import "helper/variables";
 @import "helper/grid";
+@import "helper/support";
 @import 'buttons.scss';
 
 * {
   box-sizing: border-box;
   font-family: Futura, "Noto Sans CJK TC", 'Noto Serif TC', sans-serif;
 }
-%flex-row-center-center {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+
+h1, .h1 {
+  @extend %font-h1;
+}
+h2, .h2 {
+  @extend %font-h2;
+}
+h3, .h3 {
+  @extend %font-h3;
+}
+h4, .h4 {
+  @extend %font-h4;
+}
+h5, .h5 {
+  @extend %font-h5;
 }
 
-h1 {
-  font-size: $font-size-h1;
-  line-height: $font-size-h1 * 1.2;
-  letter-spacing: 0.12em;
-}
-h2 {
-  font-size: $font-size-h2;
-  line-height: $font-size-h2 * 1.2;
-  letter-spacing: 0.12em;
-}
-h3 {
-  font-size: $font-size-h3;
-  line-height: $font-size-h3 * 1.2;
-  letter-spacing: 0.12em;
-}
-h4 {
-  font-size: $font-size-h4;
-  line-height: $font-size-h4 * 1.2;
-  letter-spacing: 0.12em;
-}
-h5 {
-  font-size: $font-size-h5;
-  line-height: $font-size-h5 * 1.2;
-  letter-spacing: 0.12em;
-}
 .text-b {
   font-weight: bold;
-}
-
-// RWD
-@mixin pad {
-  @media screen and (min-width: 481px) and (max-width: 768px) {
-    @content;
-  }
-}
-
-@mixin mobile {
-  @media(max-width: 480px){
-    @content;
-  }
 }
 
 .search-bar {
   background-color: map-get($grey-color, 100);
   color: map-get($grey-color, 500);
   border-radius: 61px;
-  @extend %flex-row-center-center;
-  justify-content: space-between;
+  @extend %flex-row-space-between-center;
+  @extend %font-caption;
   font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 14px;
-  letter-spacing: 0.05em;
+  input {
+    width: 100%;
+    background-color: inherit;
+  }
 }
 .search-bar-xl {
   width: 562px;
   height: 74px;
   padding: 18px 40px;
+  input, img {
+    @extend %font-h5;
+  }
 }
 .search-bar-s {
   width: 271px;
@@ -95,15 +71,20 @@ h5 {
 nav {
   width: 100%;
   height: 60px;
+  position: fixed;
+  left: 0;
+  top: 0;
   background-color: map-get($grey-color, 200);
-  @extend %flex-row-center-center;
+  padding: 0px 150px;
+  z-index: 10;
+  @extend %flex-row-space-between-center;
   .nav {
-    @extend %flex-row-center-center;
-    justify-content: space-between;
+    @extend %flex-row-space-between-center;
+    width: inherit;
     .nav-block {
       @extend %flex-row-center-center;
       .nav-item {
-        margin: 0 12px;
+        margin-right: 12px;
       }
     }
   }
@@ -114,9 +95,13 @@ nav {
   position: relative;
   margin-right: auto;
   margin-left: auto;
+  margin-bottom: 108px;
   .container {
-    // min-height: 600px;    // 應該不用設定，內容會撐，開發 footer 先頂一下
+    min-height: 600px;
     padding: 35px 150px;
+    .content {
+      @include clearfix;
+    }
   }
 }
 
@@ -127,16 +112,18 @@ nav {
   top: 0;
   left: 0;
   z-index: -1;
-  height: 172px;
+  height: $class-benner-heught;
 }
 
 .benner-container {
+  margin-top: 60px;
+  padding: 35px 150px;
+  height: $class-benner-heught;
   .title {
     color: map-get($grey-color, 100);
   }
   .benner-btn-container {
-    @extend %flex-row-center-center;
-    justify-content: space-between;
+    @extend %flex-row-space-between-center;
     margin-top: 3px;
     .left-btn, .right-btn {
       @extend %flex-row-center-center;
@@ -155,54 +142,109 @@ nav {
   background-color: map-get($grey-color, 100);
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  .area {
-    color: map-get($grey-color, 700);
-    padding-top: 12px;
-    .v-area {
-      font-weight: bold;
-      font-size: 12px;
-      line-height: 14px;
-    }
-    .area-block {
-      border-bottom: 1px solid map-get($grey-color, 300);
-      padding-bottom: 15px;
-      .area-title {
-        @extend %flex-row-center-center;
-        justify-content: start;
-        padding: 4px 0 7px 0;
-        .title-text {
-          font-weight: bold;
-          font-size: 18px;
-          line-height: 22px;
-        }
-        .title-icon {
-          margin-left: 8px;
-          // 以下三角型設定
-          width: 0;
-          height: 0;
-          transform: rotate(90deg); // 控制去移掉這個
-          border-style: solid;
-          border-width: 6px 0 6px 10px;
-          border-color: transparent transparent transparent map-get($grey-color, 600);
-        }
+  z-index: 1;
+  cursor: default;
+  .area-container {
+    height: 400px;
+    overflow: auto;
+    margin-top: 12px;
+    .area {
+      color: map-get($grey-color, 700);
+      padding-top: 12px;
+      .v-area {
+        @extend %font-caption;
       }
-      .area-list {
-        @extend %flex-row-center-center;
-        flex-wrap: wrap;
-        justify-content: start;
-        .area-item {
-          font-weight: 500;
-          font-size: 15px;
-          line-height: 20px;
-          letter-spacing: 0.05em;
-          margin-right: 19px;
+      .area-block {
+        border-bottom: 1px solid map-get($grey-color, 300);
+        padding: 7px 0;
+        .area-title {
+          @extend %flex-row-start-center;
+          padding: 4px 0 7px 0;
+          .title-text {
+            @extend %font-content;
+          }
+          .title-icon {
+            margin-left: 8px;
+            // 以下三角型設定
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 6px 0 6px 10px;
+            border-color: transparent transparent transparent map-get($grey-color, 600);
+            transition: .2s ease-in-out;
+          }
+          .title-icon.show {
+            transform: rotate(90deg); // 控制去增加這個
+          }
+        }
+        .area-list {
+          @extend %flex-row-space-between-center;
+          flex-wrap: wrap;
+          gap: 10px;
+          .area-item {
+            font-weight: 500;
+            @extend %font-button;
+            line-height: 20px;
+          }
         }
       }
     }
   }
 }
 
+.card {
+  padding: 20px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  @extend %flex-column-center-baseline;
+  .card-img {
+    width: 100%;
+    img {
+      width: 100%;
+      height: 205px;
+      object-fit: cover;
+    }
+    border-radius: 8px;
+  }
+  .card-content {
+    padding: 5px;
+    .card-title {
+      padding-bottom: 2px;
+      @include ellipsis-text(1)
+    }
+    .card-stars {
+      padding-top: 10px;
+      padding-bottom: 5px;
+    }
+    .card-tags {
+      @extend %tags-row;
+    }
+    .card-text {
+      padding-top: 5px;
+      @include ellipsis-text(3)
+      @extend %font-content;
+      color: map-get($grey-color, 600);
+    }
+  }
+}
 
+.detail-header {
+  @extend %flex-row-space-between-center;
+  .detail-title {
+    .title-text {}
+    .detail-stars {}
+    .detail-comment-count {}
+    .detail-tags {
+      @extend %tags-row;
+    }
+  }
+  .detail-connect {
+    @extend %flex-row-center-center;
+  }
+}
+.detail-title {
+  color: map-get($grey-color, 600);
+}
 
 
 // 文字顏色、背景顏色  .text-primary-100 .bg-alert-900
@@ -235,10 +277,9 @@ footer {
   .footer {
     width: 80%;
     color: map-get($grey-color, 100);
-    @extend %flex-row-center-center;
-    justify-content: space-between;
+    @extend %flex-row-space-between-center;
     .footer-brand {
-      @extend %flex-row-center-center;
+      @extend %flex-column-center-center;
       .footer-icon {
         @extend %flex-row-center-center;
         margin-top: 8px;
@@ -246,15 +287,12 @@ footer {
           margin-right: 6px;
         }
       }
-      flex-direction: column;
     }
     .footer-link {
       width: 432px;
-      @extend %flex-row-center-center;
-      justify-content: space-between;
+      @extend %flex-row-space-between-center;
       .footer-item {
-        @extend %flex-row-center-center;
-        flex-direction: column;
+        @extend %flex-column-center-center;
         a {
           margin-bottom: 8px;
           &:visited {

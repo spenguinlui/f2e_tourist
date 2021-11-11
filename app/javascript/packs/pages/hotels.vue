@@ -1,9 +1,8 @@
 <template>
   <div>
     <div class="container-fluid">
-      <div class="class-benner"></div>
+      <ClassBenner/>
       <div class="container">
-        <ClassBenner/>
         <router-view/>
       </div>
     </div>

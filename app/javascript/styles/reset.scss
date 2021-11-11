@@ -43,3 +43,11 @@ table {
 a {
 	text-decoration: none;
 }
+input{
+	border: none;
+	appearance:none;
+	-moz-appearance:none;
+	&:focus {
+		outline:none;
+	}
+}

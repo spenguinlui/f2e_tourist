@@ -1,9 +1,10 @@
 <template>
   <div :class="`search-bar ${sizeType}`">
-    <div v-if="size === 's'">{{ text }}</div>
-    <div v-if="size === 'g'" class="text-grey-500">{{ text }}</div>
-    <h5 v-if="size === 'xl'">{{ text }}</h5>
-    <div><img src="../../images/icon/search.svg" alt="搜尋"></div>
+    <input v-if="size === 's'" type="text" placeholder="想要去哪？">
+    <input v-if="size === 'g'" class="text-grey-500" type="text" placeholder="想要去哪？">
+    <input v-if="size === 'xl'" type="text" calss="h5" placeholder="想要去哪？">
+    <div v-if="size !== 'xl'"><img calss="h5" src="../../images/icon/search.svg" alt="搜尋"></div>
+    <div v-if="size === 'xl'"><img calss="h5" src="../../images/icon/search-xl.svg" alt="搜尋"></div>
   </div>
 </template>
 

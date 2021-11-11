@@ -1,32 +1,32 @@
 <template>
   <div>
-    <div class="benner-container">
-      <h1 class="title">{{ class_type_zh }}列表</h1>
+    <div class="benner-container" :style="{ backgroundImage: bgImage }">
+      <h1 class="title">{{ classType_zh }}列表</h1>
       <div class="benner-btn-container">
         <div class="left-btn">
           <div class="relative">
-            <div class="btn-choose btn-outline">選擇地區</div>
-            <SelectAreaBlock/>
+            <div class="btn-choose btn-outline" @click="toggleSelectBlock()">選擇地區</div>
+            <SelectAreaBlock :open="selectBlockShow" @updateData="updateData"/>
           </div>
           <div class="btn-choose btn-outline">選擇日期</div>
         </div>
         <div class="right-btn">
-          <div class="btn-icon-text btn-filled">篩選<img src="../../images/icon/filter.svg" alt="篩選icon"></div>
-          <div v-if="class_type === 'scenicspots'">
-            <router-link v-show="!this.isList" @click="toggleViewType()" :to="{ name: 'scenicspots-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list.svg" alt="切換列表icon"></router-link>
-            <router-link v-show="!this.isMap" @click="toggleViewType()" :to="{ name: 'scenicspots-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map.svg" alt="切換地圖icon"></router-link>
+          <button class="btn-icon-text btn-filled">篩選<img src="../../images/icon/filter-f.svg" alt="切換列表icon"></button>
+          <div v-if="classType === 'scenicspots'" @click="toggleViewType()">
+            <router-link v-show="!isList" :to="{ name: 'scenicspots-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+            <router-link v-show="!isMap" :to="{ name: 'scenicspots-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
-          <div v-if="class_type === 'activities'">
-            <router-link v-show="!this.isList" @click="toggleViewType()" :to="{ name: 'activities-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list.svg" alt="切換列表icon"></router-link>
-            <router-link v-show="!this.isMap" @click="toggleViewType()" :to="{ name: 'activities-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map.svg" alt="切換地圖icon"></router-link>
+          <div v-if="classType === 'activities'" @click="toggleViewType()">
+            <router-link v-show="!isList" :to="{ name: 'activities-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+            <router-link v-show="!isMap" :to="{ name: 'activities-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
-          <div v-if="class_type === 'hotels'">
-            <router-link v-show="!this.isList" @click="toggleViewType()" :to="{ name: 'hotels-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list.svg" alt="切換列表icon"></router-link>
-            <router-link v-show="!this.isMap" @click="toggleViewType()" :to="{ name: 'hotels-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map.svg" alt="切換地圖icon"></router-link>
+          <div v-if="classType === 'hotels'" @click="toggleViewType()">
+            <router-link v-show="!isList" :to="{ name: 'hotels-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+            <router-link v-show="!isMap" :to="{ name: 'hotels-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
-          <div v-if="class_type === 'restaurants'">
-            <router-link v-show="!this.isList" @click="toggleViewType()" :to="{ name: 'restaurants-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list.svg" alt="切換列表icon"></router-link>
-            <router-link v-show="!this.isMap" @click="toggleViewType()" :to="{ name: 'restaurants-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map.svg" alt="切換地圖icon"></router-link>
+          <div v-if="classType === 'restaurants'" @click="toggleViewType()">
+            <router-link v-show="!isList" :to="{ name: 'restaurants-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+            <router-link v-show="!isMap" :to="{ name: 'restaurants-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
         </div>
       </div>
@@ -42,17 +42,24 @@
     data () {
       return {
         isList: true,
-        isMap: false
+        isMap: false,
+        selectBlockShow: false
       }
     },
     methods: {
       toggleViewType() {
-        if (this.isList) { this.isList = !this.isList };
-        if (this.isMap) { this.isMap = !this.isMap };
+        this.isList = !this.isList;
+        this.isMap = !this.isMap;
+      },
+      toggleSelectBlock() {
+        this.selectBlockShow = !this.selectBlockShow
+      },
+      updateData(query){
+        this.$emit('updateData', query);
       }
     },
     computed: {
-      class_type() {
+      classType() {
         const currentPath = this.$route.name;
         if (currentPath.indexOf("activities") >= 0) {
           return "activities"
@@ -66,8 +73,8 @@
           return "others"
         }
       },
-      class_type_zh() {
-        switch (this.class_type) {
+      classType_zh() {
+        switch (this.classType) {
           case "activities":
             return "活動";
           case "restaurants":
@@ -78,6 +85,20 @@
             return "景點";
           default:
             return "其他";
+        }
+      },
+      bgImage() {
+        switch (this.classType) {
+          case "activities":
+            return `url(${require('../../images/tour-benner.png')})`;
+          case "restaurants":
+            return `url(${require('../../images/food-benner.png')})`;
+          case "hotels":
+            return `url(${require('../../images/hotel-benner.png')})`;
+          case "scenicspots":
+            return `url(${require('../../images/tour-benner.png')})`;
+          default:
+            return `url(${require('../../images/tour-benner.png')})`;
         }
       }
     },

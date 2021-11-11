@@ -15,7 +15,7 @@ export const routes = [
     name: 'scenicspots',
     children: [
       {
-        path: 'list',
+        path: '/',
         component: () => import('./pages/views/scenicspots_list'),
         name: 'scenicspots-list',
       },
@@ -23,6 +23,11 @@ export const routes = [
         path: 'map',
         component: () => import('./pages/views/scenicspots_map'),
         name: 'scenicspots-map',
+      },
+      {
+        path: 'detail/:id',
+        component: () => import('./pages/detail'),
+        name: 'scenicspots-detail',
       }
     ]
   },
@@ -32,7 +37,7 @@ export const routes = [
     name: 'activities',
     children: [
       {
-        path: 'list',
+        path: '/',
         component: () => import('./pages/views/activities_list'),
         name: 'activities-list',
       },
@@ -40,6 +45,11 @@ export const routes = [
         path: 'map',
         component: () => import('./pages/views/activities_map'),
         name: 'activities-map',
+      },
+      {
+        path: 'detail/:id',
+        component: () => import('./pages/detail'),
+        name: 'activities-detail',
       }
     ]
   },
@@ -49,7 +59,7 @@ export const routes = [
     name: 'restaurants',
     children: [
       {
-        path: 'list',
+        path: '/',
         component: () => import('./pages/views/restaurants_list'),
         name: 'restaurants-list',
       },
@@ -57,6 +67,11 @@ export const routes = [
         path: 'map',
         component: () => import('./pages/views/restaurants_map'),
         name: 'restaurants-map',
+      },
+      {
+        path: 'detail/:id/:type',
+        component: () => import('./pages/detail'),
+        name: 'restaurants-detail',
       }
     ]
   },
@@ -66,7 +81,7 @@ export const routes = [
     name: 'hotels',
     children: [
       {
-        path: 'list',
+        path: '/',
         component: () => import('./pages/views/hotels_list'),
         name: 'hotels-list',
       },
@@ -74,6 +89,11 @@ export const routes = [
         path: 'map',
         component: () => import('./pages/views/hotels_map'),
         name: 'hotels-map',
+      },
+      {
+        path: 'detail/:id',
+        component: () => import('./pages/detail'),
+        name: 'hotels-detail',
       }
     ]
   },
@@ -86,11 +106,6 @@ export const routes = [
     path: '/theme',
     component: () => import('./pages/theme'),
     name: 'theme'
-  },
-  {
-    path: '/detail',
-    component: () => import('./pages/detail'),
-    name: 'detail'
   },
   {
     path: '/suppliers',

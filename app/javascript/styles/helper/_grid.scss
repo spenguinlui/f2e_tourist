@@ -1,5 +1,8 @@
+@import "variables";
+
+// col-xl-12 float
 @each $size, $w in $sizes {
-  @media screen and (min-width: $w) {
+  // @media screen and (min-width: $w) {
     @for $i from 1 through $col {
       .col-#{$size}-#{$i} {
         width: 100% / $col * $i;
@@ -7,5 +10,5 @@
         padding: $colp;
       }
     }
-  }
+  // }
 }

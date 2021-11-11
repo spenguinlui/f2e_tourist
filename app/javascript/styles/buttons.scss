@@ -1,28 +1,17 @@
 @import "helper/variables";
-
-%btn {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  font-size: $font-size-button;
-}
+@import "helper/support";
 
 // 先用於 header、buttom-m、content
 .btn-text {
   @extend %btn;
-  // width: 89px;
-  // height: 38px;
-  border-radius: 63px;
   padding: 9px 21px;
 }
 .btn-icon-text {
   @extend %btn;
-  // width: 111px;
-  // height: 38px;
-  border-radius: 63px;
   padding: 9px 21px;
-  img {
+  div, img {
+    width: 14px;
+    height: 14px;
     svg {
       fill: map-get($primary-color, 700);
     }
@@ -31,24 +20,65 @@
 }
 .btn-icon {
   @extend %btn;
-  // width: 34px;
-  // height: 34px;
-  border-radius: 63px;
   padding: 10px;
 }
 .btn-choose {
   @extend %btn;
   width: 271px;
-  border-radius: 63px;
   align-items: start;
   padding: 8px 12px 8px 16px;
+}
+
+.btn-tag-filled {
+  @extend %btn-tag;
+  background-color: map-get($primary-color, 600);
+  color: map-get($grey-color, 100);
+  border: 1px solid map-get($primary-color, 600);
+  &:hover {
+    background-color: map-get($primary-color, 700);
+    border: 1px solid map-get($primary-color, 700);
+  }
+  &:focus {
+    box-shadow: inset 0px 0px 4px map-get($grey-color, 100);
+  }
+  &:disabled {
+    background-color: map-get($grey-color, 300);
+    border: 1px solid map-get($grey-color, 300);
+  }
+}
+
+.btn-tag-outline {
+  @extend %btn-tag;
+  background-color: map-get($grey-color, 100);
+  color: map-get($primary-color, 600);
+  border: 1px solid map-get($primary-color, 600);
+  &:hover {
+    background-color: map-get($primary-color, 200);
+    color: map-get($primary-color, 700);
+    border: 1px solid map-get($primary-color, 700);
+  }
+  &:focus {
+    background-color: map-get($primary-color, 100);
+    box-shadow: inset 0px 0px 4px map-get($grey-color, 100);
+  }
+  &:disabled {
+    background-color: map-get($grey-color, 100);
+    color:  map-get($grey-color, 300);
+    border: 1px solid map-get($grey-color, 300);
+  }
 }
 
 .btn-filled {
   background-color: map-get($primary-color, 700);
   color: map-get($grey-color, 100);
   border: 1px solid map-get($primary-color, 700);
-  svg {
+  div {
+    background-color: map-get($grey-color, 100);
+    color: map-get($grey-color, 100);
+    fill: map-get($grey-color, 100);
+  }
+  img {
+    color: map-get($grey-color, 100);
     fill: map-get($grey-color, 100);
   }
   &:hover {
@@ -82,6 +112,7 @@
   }
   &:disabled {
     background-color: map-get($grey-color, 100);
+    color:  map-get($grey-color, 300);
     border: 1px solid map-get($grey-color, 300);
   }
   &:visited {

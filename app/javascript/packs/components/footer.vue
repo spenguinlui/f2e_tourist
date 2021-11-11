@@ -11,7 +11,7 @@
       </div>
       <div class="footer-link">
         <div class="footer-item">
-          <router-link :to="{ name: 'scenicspots' }">找景點</router-link>
+          <router-link :to="{ name: 'scenicspots-list' }">找景點</router-link>
           <router-link :to="{ name: 'theme' }">主題景點</router-link>
         </div>
         <!-- <div class="footer-item">
@@ -19,11 +19,11 @@
           <router-link :to="{ name: 'theme' }">主題活動</router-link>
         </div> -->
         <div class="footer-item">
-          <router-link :to="{ name: 'restaurants' }">找餐廳</router-link>
+          <router-link :to="{ name: 'restaurants-list' }">找餐廳</router-link>
           <router-link :to="{ name: 'theme' }">主題餐廳</router-link>
         </div>
         <div class="footer-item">
-          <router-link :to="{ name: 'hotels' }">找飯店</router-link>
+          <router-link :to="{ name: 'hotels-list' }">找飯店</router-link>
           <router-link :to="{ name: 'theme' }">主題活動</router-link>
         </div>
         <div class="footer-item">
@@ -31,9 +31,7 @@
           <router-link :to="{ name: 'suppliers' }">商家專區</router-link>
         </div>
       </div>
-      <div class="footer-copyright">
-        Copyright ©
-      </div>
+      <div class="footer-copyright">Copyright ©</div>
     </div>
   </footer>
 </template>
