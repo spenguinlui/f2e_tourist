@@ -2,8 +2,8 @@
   <div>
     <div class="card" @click="toDetail(item.ID)">
       <div class="card-img">
-        <img v-if="!item.Picture.PictureUrl1" src="../../images/empty-img.png" alt="no-imag'">
-        <img v-if="item.Picture.PictureUrl1" :src="item.Picture.PictureUrl1" :alt="item.Picture.PictureDescription1">
+        <img v-if="!item.Picture && !item.Picture.PictureUrl1" src="../../images/empty-img.png" alt="no-imag'">
+        <img v-if="item.Picture" :src="item.Picture.PictureUrl1" :alt="item.Picture.PictureDescription1">
         <div class="card-icon"></div>
       </div>
       <div class="card-content">
@@ -33,7 +33,7 @@
     props: ['item', 'type'],
     data () {
       return {
-        
+        // card 內的 dataType 是吃父元件傳進來的，因為一頁內可能會有多種類型
       }
     },
     methods: {

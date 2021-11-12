@@ -50,4 +50,7 @@ input{
 	&:focus {
 		outline:none;
 	}
+	&:visited {
+		color: inherit;
+	}
 }

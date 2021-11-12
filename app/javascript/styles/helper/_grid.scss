@@ -7,7 +7,7 @@
       .col-#{$size}-#{$i} {
         width: 100% / $col * $i;
         float: left;
-        padding: $colp;
+        // padding: $colp;
       }
     }
   // }

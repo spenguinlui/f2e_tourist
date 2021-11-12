@@ -5,27 +5,29 @@
       <div class="benner-btn-container">
         <div class="left-btn">
           <div class="relative">
-            <div class="btn-choose btn-outline" @click="toggleSelectBlock()">選擇地區</div>
-            <SelectAreaBlock :open="selectBlockShow" @updateData="updateData"/>
+            <div class="btn-choose btn-outline" @click.stop.prevent="showSelectBlock">選擇地區</div>
+            <div v-show="areaSelectBlockVisible" ref="selectAreaBlockContainer">
+              <SelectAreaBlock/>
+            </div>
           </div>
           <div class="btn-choose btn-outline">選擇日期</div>
         </div>
         <div class="right-btn">
           <button class="btn-icon-text btn-filled">篩選<img src="../../images/icon/filter-f.svg" alt="切換列表icon"></button>
-          <div v-if="classType === 'scenicspots'" @click="toggleViewType()">
-            <router-link v-show="!isList" :to="{ name: 'scenicspots-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+          <div v-if="classType === 'scenicspots'" @click="isMap = !isMap">
+            <router-link v-show="isMap" :to="{ name: 'scenicspots-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
             <router-link v-show="!isMap" :to="{ name: 'scenicspots-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
-          <div v-if="classType === 'activities'" @click="toggleViewType()">
-            <router-link v-show="!isList" :to="{ name: 'activities-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+          <div v-if="classType === 'activities'" @click="isMap = !isMap">
+            <router-link v-show="isMap" :to="{ name: 'activities-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
             <router-link v-show="!isMap" :to="{ name: 'activities-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
-          <div v-if="classType === 'hotels'" @click="toggleViewType()">
-            <router-link v-show="!isList" :to="{ name: 'hotels-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+          <div v-if="classType === 'hotels'" @click="isMap = !isMap">
+            <router-link v-show="isMap" :to="{ name: 'hotels-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
             <router-link v-show="!isMap" :to="{ name: 'hotels-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
-          <div v-if="classType === 'restaurants'" @click="toggleViewType()">
-            <router-link v-show="!isList" :to="{ name: 'restaurants-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+          <div v-if="classType === 'restaurants'" @click="isMap = !isMap">
+            <router-link v-show="isMap" :to="{ name: 'restaurants-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
             <router-link v-show="!isMap" :to="{ name: 'restaurants-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
         </div>
@@ -41,21 +43,27 @@
     props: ['type'],
     data () {
       return {
-        isList: true,
         isMap: false,
-        selectBlockShow: false
+        areaSelectBlockVisible: false
       }
     },
     methods: {
-      toggleViewType() {
-        this.isList = !this.isList;
-        this.isMap = !this.isMap;
+      showSelectBlock () {
+        if (this.areaSelectBlockVisible) {
+          this.hideSelectBlock();
+        } else {
+          this.areaSelectBlockVisible = true
+          document.addEventListener('click', this.checkElementIsNotBlock, false);
+        }
       },
-      toggleSelectBlock() {
-        this.selectBlockShow = !this.selectBlockShow
+      hideSelectBlock () {
+        this.areaSelectBlockVisible = false;
+        document.removeEventListener('click', this.checkElementIsNotBlock, false)
       },
-      updateData(query){
-        this.$emit('updateData', query);
+      checkElementIsNotBlock (e) {
+        if (!this.$refs.selectAreaBlockContainer.contains(e.target)) {
+          this.hideSelectBlock();
+        }
       }
     },
     computed: {

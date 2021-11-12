@@ -2,6 +2,7 @@
 @import "helper/variables";
 @import "helper/grid";
 @import "helper/support";
+@import "card.scss";
 @import 'buttons.scss';
 
 * {
@@ -27,6 +28,10 @@ h5, .h5 {
 
 .text-b {
   font-weight: bold;
+}
+
+.p-15 {
+  padding: 15px;
 }
 
 .search-bar {
@@ -62,10 +67,35 @@ h5, .h5 {
 }
 
 .home-section {
+  padding: 35px 150px;
+  .hot-tittle {
+    @extend %flex-row-space-between-center;
+    .hot-left {
+      @extend %font-h3;
+      color: #000000;
+    }
+    .hot-right {
 
+    }
+  }
+  
 }
-.home-theme {
 
+.home-theme {
+  height: 339px;
+  background-image: url('../images/theme-benner.png');
+  @extend %flex-row-center-center;
+  .theme-tittle {
+    @extend %font-h2;
+    text-shadow: 0px 2px 10px rgba(128, 128, 128, 0.7);
+    padding-bottom: 12px;
+    > a {
+      color: map-get($grey-color, 100);;
+      &:visited {
+        color: map-get($grey-color, 100);
+      }
+    } 
+  }
 }
 
 nav {
@@ -96,8 +126,8 @@ nav {
   margin-right: auto;
   margin-left: auto;
   margin-bottom: 108px;
+  min-height: 600px;
   .container {
-    min-height: 600px;
     padding: 35px 150px;
     .content {
       @include clearfix;
@@ -185,65 +215,95 @@ nav {
             font-weight: 500;
             @extend %font-button;
             line-height: 20px;
+            &:hover {
+              color: map-get($grey-color, 400);
+            }
+            &.active {
+              color: map-get($primary-color, 600);
+            }
           }
         }
       }
     }
   }
 }
-
-.card {
-  padding: 20px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  @extend %flex-column-center-baseline;
-  .card-img {
-    width: 100%;
-    img {
-      width: 100%;
-      height: 205px;
-      object-fit: cover;
-    }
-    border-radius: 8px;
-  }
-  .card-content {
-    padding: 5px;
-    .card-title {
-      padding-bottom: 2px;
-      @include ellipsis-text(1)
-    }
-    .card-stars {
-      padding-top: 10px;
-      padding-bottom: 5px;
-    }
-    .card-tags {
-      @extend %tags-row;
-    }
-    .card-text {
-      padding-top: 5px;
-      @include ellipsis-text(3)
-      @extend %font-content;
-      color: map-get($grey-color, 600);
-    }
-  }
+.breadcrumbs {
+  @extend %font-button;
+  color: map-get($grey-color, 500);
 }
-
 .detail-header {
   @extend %flex-row-space-between-center;
   .detail-title {
-    .title-text {}
-    .detail-stars {}
-    .detail-comment-count {}
+    @extend %flex-column-center-baseline;
+    .title-text {
+      @extend %font-h1;
+      color: map-get($grey-color, 700);
+      padding: 8px 0;
+    }
+    .detail-comment-block {
+      @extend %flex-row-start-center;
+      .detail-stars {
+        margin-right: 11px
+      }
+      .detail-comment-count {
+        @extend %font-button;
+        color: map-get($grey-color, 500);
+      }
+    }
     .detail-tags {
       @extend %tags-row;
     }
   }
   .detail-connect {
-    @extend %flex-row-center-center;
+    @extend %tags-row;
+  }
+}
+$left-padding: 24px;
+.detail-container {
+  @extend %flex-row-center-center;
+  padding: 24px 0;
+  .detail-left {
+    flex: 5;
+    .detail-left-content {
+      border: 1px solid map-get($grey-color, 300);
+      padding: $left-padding;
+      @extend %flex-column-start-space-between;
+      gap: 20px;
+      .detail-content {
+        @include ellipsis-text(8);  // 文字太多咖掉，不然會爆板，在想要怎顯示
+      }
+    }
+  }
+  .detail-right {
+    border: 8px solid map-get($grey-color, 800);
+    flex: 7;
+    margin: 0 $left-padding;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .imgs {
+      border: 8px solid map-get($grey-color, 800);
+      height: 100px;
+      margin-top: -2px;  // 消除神秘縫隙
+    }
   }
 }
 .detail-title {
+  @extend %font-h3;
+  color: map-get($primary-color, 800);
+  padding: 8px 0;
+}
+.detail-content {
+  @extend %font-content;
   color: map-get($grey-color, 600);
+}
+.no-content {
+  @extend %flex-row-center-center;
+  @extend %font-h2;
+  color: map-get($grey-color, 300);
+  padding: 30px;
 }
 
 

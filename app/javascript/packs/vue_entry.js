@@ -1,8 +1,13 @@
-import TurbolinksAdapter from 'vue-turbolinks';
 import Vue from 'vue/dist/vue.esm';
+
+import TurbolinksAdapter from 'vue-turbolinks';
 import App from './App.vue';
+
 import Router from 'vue-router';
 import { routes } from './routes';
+
+import Vuex from 'vuex';
+import { storeObject } from './store';
 
 import '../styles/application.scss';
 
@@ -17,9 +22,14 @@ const router = new Router({
   routes
 })
 
+// Vuex
+Vue.use(Vuex);
+const store = new Vuex.Store(storeObject);
+
 document.addEventListener('turbolinks:load', () => {
   new Vue({
     router,
+    store,
     render: h => h(App)
   }).$mount('#app')
 });

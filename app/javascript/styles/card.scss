@@ -1,0 +1,37 @@
+@import "helper/support";
+
+.card {
+  padding: 20px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  @extend %flex-column-center-baseline;
+  .card-img {
+    width: 100%;
+    img {
+      width: 100%;
+      height: 205px;
+      object-fit: cover;
+    }
+    border-radius: 8px;
+  }
+  .card-content {
+    padding: 5px;
+    .card-title {
+      padding-bottom: 2px;
+      @include ellipsis-text(1)
+    }
+    .card-stars {
+      padding-top: 10px;
+      padding-bottom: 5px;
+    }
+    .card-tags {
+      @extend %tags-row;
+    }
+    .card-text {
+      padding-top: 5px;
+      @include ellipsis-text(3)
+      @extend %font-content;
+      color: map-get($grey-color, 600);
+    }
+  }
+}

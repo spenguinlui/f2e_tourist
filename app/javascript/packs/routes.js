@@ -25,7 +25,7 @@ export const routes = [
         name: 'scenicspots-map',
       },
       {
-        path: 'detail/:id',
+        path: 'detail/:id/:type',
         component: () => import('./pages/detail'),
         name: 'scenicspots-detail',
       }
@@ -47,7 +47,7 @@ export const routes = [
         name: 'activities-map',
       },
       {
-        path: 'detail/:id',
+        path: 'detail/:id/:type',
         component: () => import('./pages/detail'),
         name: 'activities-detail',
       }
@@ -91,7 +91,7 @@ export const routes = [
         name: 'hotels-map',
       },
       {
-        path: 'detail/:id',
+        path: 'detail/:id/:type',
         component: () => import('./pages/detail'),
         name: 'hotels-detail',
       }

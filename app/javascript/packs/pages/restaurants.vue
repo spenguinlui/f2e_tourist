@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container-fluid">
-      <ClassBenner @updateData="updateData"/>
+      <ClassBenner/>
       <div class="container">
         <router-view/>
       </div>
@@ -22,11 +22,6 @@ export default {
   },
   components: {
     ClassBenner
-  },
-  methods: {
-    updateData(query) {
-      console.log(query);
-    }
   }
 }
 </script>

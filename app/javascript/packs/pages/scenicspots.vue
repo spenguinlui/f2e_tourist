@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     updateData(query) {
-      console.log(query);
+      
     }
   }
 }

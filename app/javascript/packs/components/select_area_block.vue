@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-show="open" class="select-area-block">
+    <div class="select-area-block">
       <GlobalSearch :size="'g'"/>
       <div class="area-container">
-        <div v-for="(area, a_index) in areasData" :key="area.area" class="area">
+        <div v-for="(area, a_index) in areaList" :key="area.area" class="area">
           <div class="v-area">{{ area.area }}</div>
           <div v-for="(city, c_index) in area.citys" :key="city.city_name" class="area-block">
             <div class="area-title" @click="toggleList(a_index, c_index)">
@@ -11,7 +11,7 @@
               <div class="title-icon" :class="city.is_open ? 'show' : ''"></div>
             </div>
             <div class="area-list" v-show="city.is_open">
-              <div v-for="dist in city.dists" :key="dist.TownName" class="area-item">
+              <div v-for="dist in city.dists" :key="dist.TownName" class="area-item" :class="currentArea === dist.TownName ? 'active' : ''">
                 <div @click="filterCityData(dist.TownName)">{{ dist.TownName }}</div>
               </div>
             </div>
@@ -24,15 +24,14 @@
 
 <script>
   import GlobalSearch from './global_search.vue';
-  import Rails from '@rails/ujs';
+  import { mapGetters } from 'vuex';
 
   export default {
-    props: ['open'],
     data () {
       return {
-        areasData: [
-          { area: "" , citys: [{ city: "", city_name: "", is_open: false, dists: [{ TownName: "" }] }]}
-        ]
+        // areaList: [
+        //   { area: "" , citys: [{ city: "", city_name: "", is_open: false, dists: [{ TownName: "" }] }]}
+        // ]
       }
     },
     methods: {
@@ -40,25 +39,20 @@
         this.areasData[a_index].citys[c_index].is_open = !this.areasData[a_index].citys[c_index].is_open;
       },
       filterCityData(townName) {
-        this.$emit('updateData', townName); 
+        this.$store.dispatch("filterDataListWithTown", townName);
+      },
+      getCityTownList() {
+        this.$store.dispatch("getCityTownList");
       }
+    },
+    computed: {
+      ...mapGetters(['areaList', 'currentArea'])
     },
     components: {
       GlobalSearch
     },
-    beforeCreate() {
-      Rails.ajax({
-        url: "/api/v1/citys",
-        type: 'GET',
-        dataType: 'json',
-        success: res => {
-          this.areasData = res;
-          // console.log(res);
-        },
-        error: error => {
-          console.log(error);            
-        }
-      })
+    created() {
+      this.getCityTownList();
     }
   }
 </script>
