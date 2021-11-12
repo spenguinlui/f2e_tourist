@@ -16,12 +16,12 @@
     name: 'scenicspots-list',
     data () {
       return {
-        // 這邊的 dataType 是吃全域的，因為一次只會在一種個列表內
-        text: "這裡是 scenicspots-list",
       }
     },
     computed: {
       ...mapGetters(['dataList', 'dataType']),
+    },
+    methods: {
     },
     components: {
       Card

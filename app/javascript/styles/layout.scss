@@ -66,6 +66,24 @@ h5, .h5 {
   @extend %flex-row-center-center;
 }
 
+.section {
+  padding: 35px 0px;
+  &.home-section {
+    padding: 35px 150px;
+  }
+  .section-title {
+    @extend %flex-row-space-between-center;
+    .section-left {
+      @extend %font-h3;
+      color: #000000;
+    }
+    .section-right {}
+  }
+  .section-list {
+    @include clearfix;
+  }
+}
+
 .home-section {
   padding: 35px 150px;
   .hot-tittle {
@@ -89,12 +107,7 @@ h5, .h5 {
     @extend %font-h2;
     text-shadow: 0px 2px 10px rgba(128, 128, 128, 0.7);
     padding-bottom: 12px;
-    > a {
-      color: map-get($grey-color, 100);;
-      &:visited {
-        color: map-get($grey-color, 100);
-      }
-    } 
+    color: map-get($grey-color, 100);
   }
 }
 

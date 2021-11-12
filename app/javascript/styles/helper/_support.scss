@@ -143,13 +143,15 @@ $font-size-caption: 0.694rem; // 12px
   @extend %flex-row-center-center;
   @extend %font-button;
   border-radius: 63px;
-  // font-size: $font-size-button;
+  cursor: default;
 }
 %btn-tag {
   @extend %flex-row-center-center;
   @extend %font-caption;
   border-radius: 21px;
   padding: 4px 10px;
+  // cursor: default;
+  cursor: pointer;
 }
 
 %tags-row {

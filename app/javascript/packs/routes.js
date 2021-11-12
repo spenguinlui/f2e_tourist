@@ -4,6 +4,11 @@ export const routes = [
     component: () => import('./pages/home'),
     name: 'home'
   },
+	{
+    path: '/search',
+    component: () => import('./pages/search'),
+    name: 'search'
+  },
   {
     path: '/login',
     component: () => import('./components/login.vue'),

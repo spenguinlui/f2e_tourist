@@ -7,6 +7,7 @@ export const storeObject = {
     dataType: "",
     currentArea: "",
     currentDataId: "",
+    searchData: {},        // 包含景點、活動、餐廳、住宿四個物件，底下個別是 dataList
     dataDetail: {}
   },
   getters: {
@@ -14,7 +15,8 @@ export const storeObject = {
     dataList: state => state.dataList,
     dataType: state => state.dataType,
     currentArea: state => state.currentArea,
-    dataDetail: state => state.dataDetail
+    searchData: state => state.searchData,
+    dataDetail: state => state.dataDetail,
   },
   mutations: {
     GET_ALL_AREA(state, areaList) {
@@ -31,6 +33,9 @@ export const storeObject = {
     },
     GET_SINGLE_DATA_DETAIL(state, dataDetail) {
       state.dataDetail = dataDetail;
+    },
+    UPDATE_SEARCH_DATA(state, searchData) {
+      state.searchData = searchData;
     }
   },
   actions: {
@@ -70,6 +75,19 @@ export const storeObject = {
         success: res => {
           commit("UPDATE_DATA_LIST", res.data);
           commit("UPDATE_CURRENT_DATA_AREA", town);
+        },
+        error: error => {
+          console.log(error);            
+        }
+      })
+    },
+    filterDataListWithKeyword({ commit }, keyword){
+      Rails.ajax({
+        url: `/api/v1/search?keyword=${keyword}`,
+        type: 'GET',
+        dataType: 'json',
+        success: res => {
+          commit("UPDATE_SEARCH_DATA", res);
         },
         error: error => {
           console.log(error);            

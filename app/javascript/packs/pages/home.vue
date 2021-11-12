@@ -4,14 +4,14 @@
       <div class="home-benner">
         <GlobalSearch :size="'xl'"/>
       </div>
-      <div class="home-section">
-        <div class="hot-tittle">
-          <div class="hot-left">熱門景點</div>
-          <div class="hot-right">
+      <div class="section home-section">
+        <div class="section-title">
+          <div class="section-left">熱門景點</div>
+          <div class="section-right">
             <div class="btn-text btn-filled">查看更多</div>
           </div>
         </div>
-        <div class="card-slider-row">
+        <div v-if="false" class="card-slider-row">
           <div class="col-xl-3">
             <Card/>
           </div>
@@ -28,10 +28,8 @@
       </div>
       <div class="home-theme">
         <div>
-          <div class="theme-tittle">
-            <router-link :to="{ name: 'theme' }">你不能錯過的注目景點！</router-link>
-          </div>
-          <div class="btn-text btn-filled">賞楓秘境看這裡</div>
+          <div class="theme-tittle">你不能錯過的注目景點！</div>
+          <router-link :to="{ name: 'theme' }" class="btn-text btn-filled">賞楓秘境看這裡</router-link>
         </div>
       </div>
       <div class="home-section">
@@ -41,7 +39,7 @@
             <div class="btn-text btn-filled">查看更多</div>
           </div>
         </div>
-        <div class="card-slider-row">
+        <div v-if="false" class="card-slider-row">
           <div class="col-xl-3">
             <Card/>
           </div>

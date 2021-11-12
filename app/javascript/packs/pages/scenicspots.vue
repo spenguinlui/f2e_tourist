@@ -1,12 +1,10 @@
 <template>
   <div>
     <div class="container-fluid">
-      <ClassBenner @updateData="updateData"/>
+      <ClassBenner/>
       <div class="container">
         <router-view />
       </div>
-    </div>
-    <div>
     </div>
   </div>
 </template>

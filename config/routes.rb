@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get 'detail/activities/:id' => 'detail#activities'
       get 'detail/restaurants/:id' => 'detail#restaurants'
       get 'detail/hotels/:id' => 'detail#hotels'
+      get 'search' => 'advanced#keyword_search'
     end
   end
 

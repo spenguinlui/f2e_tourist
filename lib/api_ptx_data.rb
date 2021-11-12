@@ -110,7 +110,7 @@ class ApiPtxData
     query = []
     query << ["$top", (params[:top] ? params[:top] : @top)]
     params[:select] && query << ["$select", params[:select]]
-    params[:filter] && query << ["$filter", "contains(#{params[:filter][0]}, '#{params[:filter][1]}')"]
+    params[:filter] && query << ["$filter", get_keyowrds_query(params[:filter][0], params[:filter][1])]
     encode_query = URI.encode_www_form(query)
     get_response(
       uri: "https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$format=JSON&#{encode_query}",
@@ -122,7 +122,7 @@ class ApiPtxData
     query = []
     query << ["$top", (params[:top] ? params[:top] : @top)]
     params[:select] && query << ["$select", params[:select]]
-    params[:filter] && query << ["$filter", "contains(#{params[:filter][0]}, '#{params[:filter][1]}')"]
+    params[:filter] && query << ["$filter", get_keyowrds_query(params[:filter][0], params[:filter][1])]
     encode_query = URI.encode_www_form(query)
     get_response(
       uri: "https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity?$format=JSON&#{encode_query}",
@@ -134,9 +134,9 @@ class ApiPtxData
     query = []
     query << ["$top", (params[:top] ? params[:top] : @top)]
     params[:select] && query << ["$select", params[:select]]
-    params[:filter] && query << ["$filter", "contains(#{params[:filter][0]}, '#{params[:filter][1]}')"]
+    puts params[:filter]
+    params[:filter] && query << ["$filter", get_keyowrds_query(params[:filter][0], params[:filter][1])]
     encode_query = URI.encode_www_form(query)
-    puts "https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant?$format=JSON&#{encode_query}"
     get_response(
       uri: "https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant?$format=JSON&#{encode_query}",
       gzip: true, # 是否壓縮資料
@@ -147,9 +147,8 @@ class ApiPtxData
     query = []
     query << ["$top", (params[:top] ? params[:top] : @top)]
     params[:select] && query << ["$select", params[:select]]
-    params[:filter] && query << ["$filter", "contains(#{params[:filter][0]}, '#{params[:filter][1]}')"]
+    params[:filter] && query << ["$filter", get_keyowrds_query(params[:filter][0], params[:filter][1])]
     encode_query = URI.encode_www_form(query)
-
     get_response(
       uri: "https://ptx.transportdata.tw/MOTC/v2/Tourism/Hotel?$format=JSON&&#{encode_query}",
       gzip: true, # 是否壓縮資料
@@ -238,3 +237,24 @@ end
 
 # execute and print response
 # puts ApiPtxData.new.get_tra_station
+
+def get_keyowrds_query(query_columns, keywords)
+  if query_columns.is_a?(Array) && keywords.is_a?(Array)
+    add_count = 0
+    query_string = ""
+  
+    keywords.map do |keyword|
+      query_columns.map do |query_column|
+        if add_count == 0
+          query_string += "contains(#{query_column}, '#{keyword}')"
+        else
+          query_string += " or contains(#{query_column}, '#{keyword}')"
+        end
+        add_count+=1
+      end  
+    end
+    query_string
+  else
+    return nil
+  end
+end
