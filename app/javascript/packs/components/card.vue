@@ -38,7 +38,6 @@
     },
     methods: {
       toDetail(id) {
-        console.log(this.item.Name, id)
         this.$router.push(`/detail/${id}/${this.type}`);
       }
     }

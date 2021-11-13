@@ -5,6 +5,7 @@ export const storeObject = {
     areaList: [],
     dataList: [],
     dataType: "",
+    hotDataList: [],
     themeDataList: [],
     themeName: "",
     currentArea: "",
@@ -16,6 +17,7 @@ export const storeObject = {
     areaList: state => state.areaList,
     dataList: state => state.dataList,
     dataType: state => state.dataType,
+    hotDataList: state => state.hotDataList,
     themeDataList: state => state.themeDataList,
     themeName: state => state.themeName,
     currentArea: state => state.currentArea,
@@ -34,6 +36,9 @@ export const storeObject = {
     },
     UPDATE_CURRENT_DATA_TYPE(state, dataType) {
       state.dataType = dataType;
+    },
+    UPDATE_HOT_DATA_LIST(state, hotDataList) {
+      state.hotDataList = hotDataList;
     },
     UPDATE_THEME_DATA_LIST(state, themeDataList) {
       state.themeDataList = themeDataList;
@@ -87,6 +92,21 @@ export const storeObject = {
         success: res => {
           commit("UPDATE_DATA_LIST", res.data);
           commit("UPDATE_CURRENT_DATA_TYPE", res.type);
+        },
+        error: error => {
+          console.log(error);            
+        }
+      })
+    },
+
+    // 取得熱門搜尋、評論資料列表
+    getHotDataList({ commit }) {
+      Rails.ajax({
+        url: "/api/v1/hot",
+        type: 'GET',
+        dataType: 'json',
+        success: res => {
+          commit("UPDATE_HOT_DATA_LIST", res);
         },
         error: error => {
           console.log(error);            

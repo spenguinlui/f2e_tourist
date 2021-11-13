@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_13_021907) do
+ActiveRecord::Schema.define(version: 2021_11_13_073017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "local_data", force: :cascade do |t|
+    t.string "ptx_data_id", null: false
+    t.json "feature"
+    t.json "menu"
+    t.integer "search_count", default: 0
+    t.integer "enter_count", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "tags", force: :cascade do |t|
     t.string "name", null: false

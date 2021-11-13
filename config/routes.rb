@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
       get 'search' => 'advanced#keyword_search'   # 關鍵字搜尋
       get 'theme' => 'advanced#theme'             # 取得 Tag 主題式資料
+      get 'hot' => 'advanced#hot'                 # 取得熱門景點、活動、餐廳、住宿
     end
   end
   

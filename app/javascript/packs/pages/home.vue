@@ -11,18 +11,18 @@
             <div class="btn-text btn-filled">查看更多</div>
           </div>
         </div>
-        <div v-if="false" class="card-slider-row">
-          <div class="col-xl-3">
-            <Card/>
+        <div class="card-slider-row">
+          <div v-for="item in hotDataList.scenicspots" :key="item.ID" class="row-item">
+            <Card :item="item" :type="'scenicspots'"/>
           </div>
-          <div class="col-xl-3">
-            <Card/>
+          <div v-for="item in hotDataList.activities" :key="item.ID" class="row-item">
+            <Card :item="item" :type="'activities'"/>
           </div>
-          <div class="col-xl-3">
-            <Card/>
+          <div v-for="item in hotDataList.restaurants" :key="item.ID" class="row-item">
+            <Card :item="item" :type="'restaurants'"/>
           </div>
-          <div class="col-xl-3">
-            <Card/>
+          <div v-for="item in hotDataList.hotels" :key="item.ID" class="row-item">
+            <Card :item="item" :type="'hotels'"/>
           </div>
         </div>
       </div>
@@ -71,13 +71,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['themeDataList', 'themeName'])
+    ...mapGetters(['hotDataList', 'themeDataList', 'themeName'])
   },
   components: {
     GlobalSearch,
     Card
   },
   created() {
+    this.$store.dispatch("getHotDataList");
     this.$store.dispatch("getRandomThemeDataList");
   }
 }

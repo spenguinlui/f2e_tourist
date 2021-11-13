@@ -1,0 +1,2 @@
+class LocalDatum < ApplicationRecord
+end
