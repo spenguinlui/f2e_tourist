@@ -106,7 +106,7 @@ class ApiPtxData
     town_data
   end
 
-  def get_scenic_spots(**params)
+  def get_scenicspots(**params)
     query = []
     query << ["$top", (params[:top] ? params[:top] : @top)]
     params[:select] && query << ["$select", params[:select]]

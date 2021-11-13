@@ -35,8 +35,9 @@
       }
     },
     methods: {
-      toggleList(a_index, c_index) {
-        this.areasData[a_index].citys[c_index].is_open = !this.areasData[a_index].citys[c_index].is_open;
+      toggleList(areaIndex, cityIndex) {
+        this.$store.dispatch("toggleAreaList", { areaIndex, cityIndex })
+        // this.areasData[a_index].citys[c_index].is_open = !this.areasData[a_index].citys[c_index].is_open;
       },
       filterCityData(townName) {
         this.$store.dispatch("filterDataListWithTown", townName);

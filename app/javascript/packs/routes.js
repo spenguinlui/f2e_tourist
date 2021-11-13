@@ -28,11 +28,6 @@ export const routes = [
         path: 'map',
         component: () => import('./pages/views/scenicspots_map'),
         name: 'scenicspots-map',
-      },
-      {
-        path: 'detail/:id/:type',
-        component: () => import('./pages/detail'),
-        name: 'scenicspots-detail',
       }
     ]
   },
@@ -50,11 +45,6 @@ export const routes = [
         path: 'map',
         component: () => import('./pages/views/activities_map'),
         name: 'activities-map',
-      },
-      {
-        path: 'detail/:id/:type',
-        component: () => import('./pages/detail'),
-        name: 'activities-detail',
       }
     ]
   },
@@ -72,11 +62,6 @@ export const routes = [
         path: 'map',
         component: () => import('./pages/views/restaurants_map'),
         name: 'restaurants-map',
-      },
-      {
-        path: 'detail/:id/:type',
-        component: () => import('./pages/detail'),
-        name: 'restaurants-detail',
       }
     ]
   },
@@ -94,13 +79,13 @@ export const routes = [
         path: 'map',
         component: () => import('./pages/views/hotels_map'),
         name: 'hotels-map',
-      },
-      {
-        path: 'detail/:id/:type',
-        component: () => import('./pages/detail'),
-        name: 'hotels-detail',
       }
     ]
+  },
+  {
+    path: '/detail/:id/:type',
+    component: () => import('./pages/detail'),
+    name: 'detail',
   },
   {
     path: '/favorites',

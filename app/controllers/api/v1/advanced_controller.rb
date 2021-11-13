@@ -2,12 +2,12 @@ class Api::V1::AdvancedController < ApplicationController
   def keyword_search
     # 單一關鍵字
     key_word = keyword_with_tag(params[:keyword])
-    activities = ApiPtxData.new.get_activities({top: 6, select: "ID, Name, Picture", filter: [["Name", "Description"], key_word]})
-    restaurants = ApiPtxData.new.get_restaurants({top: 6, select: "ID, Name, Picture", filter: [["Name", "Description"], key_word]})
-    hotels = ApiPtxData.new.get_hotels({top: 6, select: "ID, Name, Picture", filter: [["Name", "Description"], key_word]})
-    scenic_spots = ApiPtxData.new.get_scenic_spots({top: 6, select: "ID, Name, Picture", filter: [["Name", "Description"], key_word]})
+    activities = ApiPtxData.new.get_activities({top: 3, select: "ID, Name, Picture", filter: [["Name", "Description"], key_word]})
+    restaurants = ApiPtxData.new.get_restaurants({top: 3, select: "ID, Name, Picture", filter: [["Name", "Description"], key_word]})
+    hotels = ApiPtxData.new.get_hotels({top: 3, select: "ID, Name, Picture", filter: [["Name", "Description"], key_word]})
+    scenicspots = ApiPtxData.new.get_scenicspots({top: 3, select: "ID, Name, Picture", filter: [["Name", "Description"], key_word]})
     responce_data = {
-      scenicspots: scenic_spots,
+      scenicspots: scenicspots,
       activities: activities,
       restaurants: restaurants,
       hotels: hotels

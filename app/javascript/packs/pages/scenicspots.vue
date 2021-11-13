@@ -23,9 +23,9 @@ export default {
     ClassBenner
   },
   methods: {
-    updateData(query) {
-      
-    }
+  },
+  created() {
+    this.$store.dispatch("getAllDataList", "scenicspots");
   }
 }
 </script>

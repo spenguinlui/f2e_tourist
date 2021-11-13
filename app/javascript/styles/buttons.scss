@@ -3,11 +3,11 @@
 
 // 先用於 header、buttom-m、content
 .btn-text {
-  @extend %btn;
+  @include btn;
   padding: 9px 21px;
 }
 .btn-icon-text {
-  @extend %btn;
+  @include btn;
   padding: 9px 21px;
   div, img {
     width: 14px;
@@ -19,18 +19,18 @@
   }
 }
 .btn-icon {
-  @extend %btn;
+  @include btn;
   padding: 10px;
 }
 .btn-choose {
-  @extend %btn;
+  @include btn;
   width: 271px;
   align-items: start;
   padding: 8px 12px 8px 16px;
 }
 
 .btn-tag-filled {
-  @extend %btn-tag;
+  @include btn-tag;
   background-color: map-get($primary-color, 600);
   color: map-get($grey-color, 100);
   border: 1px solid map-get($primary-color, 600);
@@ -51,7 +51,7 @@
 }
 
 .btn-tag-outline {
-  @extend %btn-tag;
+  @include btn-tag;
   background-color: map-get($grey-color, 100);
   color: map-get($primary-color, 600);
   border: 1px solid map-get($primary-color, 600);

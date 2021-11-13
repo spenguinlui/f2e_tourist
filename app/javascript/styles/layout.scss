@@ -1,7 +1,8 @@
 @import "reset";
-@import "helper/variables";
-@import "helper/grid";
-@import "helper/support";
+@import "helper/_variables";
+@import "helper/_grid";
+@import "helper/_support";
+@import "detail.scss";
 @import "card.scss";
 @import 'buttons.scss';
 
@@ -11,19 +12,19 @@
 }
 
 h1, .h1 {
-  @extend %font-h1;
+  @include font-h1;
 }
 h2, .h2 {
-  @extend %font-h2;
+  @include font-h2;
 }
 h3, .h3 {
-  @extend %font-h3;
+  @include font-h3;
 }
 h4, .h4 {
-  @extend %font-h4;
+  @include font-h4;
 }
 h5, .h5 {
-  @extend %font-h5;
+  @include font-h5;
 }
 
 .text-b {
@@ -34,12 +35,24 @@ h5, .h5 {
   padding: 15px;
 }
 
+// 文字顏色、背景顏色  .text-primary-100 .bg-alert-900
+@each $name, $item in $color-array {
+  @each $key, $value in $item {
+    .text-#{$name}-#{$key} {
+      color: $value;
+    }
+    .bg-#{$name}-#{$key} {
+      background-color: $value;
+    }
+  }
+}
+
 .search-bar {
   background-color: map-get($grey-color, 100);
   color: map-get($grey-color, 500);
   border-radius: 61px;
-  @extend %flex-row-space-between-center;
-  @extend %font-caption;
+  @include flex-row-space-between-center;
+  @include font-caption;
   font-style: normal;
   input {
     width: 100%;
@@ -51,7 +64,7 @@ h5, .h5 {
   height: 74px;
   padding: 18px 40px;
   input, img {
-    @extend %font-h5;
+    @include font-h5;
   }
 }
 .search-bar-s {
@@ -63,7 +76,7 @@ h5, .h5 {
 .home-benner {
   height: 686px;
   background-image: url('../images/home-benner.png');
-  @extend %flex-row-center-center;
+  @include flex-row-center-center;
 }
 
 .section {
@@ -72,9 +85,9 @@ h5, .h5 {
     padding: 35px 150px;
   }
   .section-title {
-    @extend %flex-row-space-between-center;
+    @include flex-row-space-between-center;
     .section-left {
-      @extend %font-h3;
+      @include font-h3;
       color: #000000;
     }
     .section-right {}
@@ -87,14 +100,12 @@ h5, .h5 {
 .home-section {
   padding: 35px 150px;
   .hot-tittle {
-    @extend %flex-row-space-between-center;
+    @include flex-row-space-between-center;
     .hot-left {
-      @extend %font-h3;
+      @include font-h3;
       color: #000000;
     }
-    .hot-right {
-
-    }
+    .hot-right {}
   }
   
 }
@@ -102,9 +113,9 @@ h5, .h5 {
 .home-theme {
   height: 339px;
   background-image: url('../images/theme-benner.png');
-  @extend %flex-row-center-center;
+  @include flex-row-center-center;
   .theme-tittle {
-    @extend %font-h2;
+    @include font-h2;
     text-shadow: 0px 2px 10px rgba(128, 128, 128, 0.7);
     padding-bottom: 12px;
     color: map-get($grey-color, 100);
@@ -120,12 +131,12 @@ nav {
   background-color: map-get($grey-color, 200);
   padding: 0px 150px;
   z-index: 10;
-  @extend %flex-row-space-between-center;
+  @include flex-row-space-between-center;
   .nav {
-    @extend %flex-row-space-between-center;
+    @include flex-row-space-between-center;
     width: inherit;
     .nav-block {
-      @extend %flex-row-center-center;
+      @include flex-row-center-center;
       .nav-item {
         margin-right: 12px;
       }
@@ -166,10 +177,10 @@ nav {
     color: map-get($grey-color, 100);
   }
   .benner-btn-container {
-    @extend %flex-row-space-between-center;
+    @include flex-row-space-between-center;
     margin-top: 3px;
     .left-btn, .right-btn {
-      @extend %flex-row-center-center;
+      @include flex-row-center-center;
     }
     .left-btn > div:nth-child(2), .right-btn > div:nth-child(2) {
       margin-left: 20px
@@ -195,16 +206,16 @@ nav {
       color: map-get($grey-color, 700);
       padding-top: 12px;
       .v-area {
-        @extend %font-caption;
+        @include font-caption;
       }
       .area-block {
         border-bottom: 1px solid map-get($grey-color, 300);
         padding: 7px 0;
         .area-title {
-          @extend %flex-row-start-center;
+          @include flex-row-start-center;
           padding: 4px 0 7px 0;
           .title-text {
-            @extend %font-content;
+            @include font-content;
           }
           .title-icon {
             margin-left: 8px;
@@ -221,12 +232,12 @@ nav {
           }
         }
         .area-list {
-          @extend %flex-row-space-between-center;
+          @include flex-row-space-between-center;
           flex-wrap: wrap;
           gap: 10px;
           .area-item {
             font-weight: 500;
-            @extend %font-button;
+            @include font-button;
             line-height: 20px;
             &:hover {
               color: map-get($grey-color, 400);
@@ -240,95 +251,20 @@ nav {
     }
   }
 }
-.breadcrumbs {
-  @extend %font-button;
-  color: map-get($grey-color, 500);
-}
-.detail-header {
-  @extend %flex-row-space-between-center;
-  .detail-title {
-    @extend %flex-column-center-baseline;
-    .title-text {
-      @extend %font-h1;
-      color: map-get($grey-color, 700);
-      padding: 8px 0;
-    }
-    .detail-comment-block {
-      @extend %flex-row-start-center;
-      .detail-stars {
-        margin-right: 11px
-      }
-      .detail-comment-count {
-        @extend %font-button;
-        color: map-get($grey-color, 500);
-      }
-    }
-    .detail-tags {
-      @extend %tags-row;
-    }
-  }
-  .detail-connect {
-    @extend %tags-row;
-  }
-}
-$left-padding: 24px;
-.detail-container {
-  @extend %flex-row-center-center;
-  padding: 24px 0;
-  .detail-left {
-    flex: 5;
-    .detail-left-content {
-      border: 1px solid map-get($grey-color, 300);
-      padding: $left-padding;
-      @extend %flex-column-start-space-between;
-      gap: 20px;
-      .detail-content {
-        @include ellipsis-text(8);  // 文字太多咖掉，不然會爆板，在想要怎顯示
-      }
-    }
-  }
-  .detail-right {
-    border: 8px solid map-get($grey-color, 800);
-    flex: 7;
-    margin: 0 $left-padding;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .imgs {
-      border: 8px solid map-get($grey-color, 800);
-      height: 100px;
-      margin-top: -2px;  // 消除神秘縫隙
-    }
-  }
-}
-.detail-title {
-  @extend %font-h3;
-  color: map-get($primary-color, 800);
-  padding: 8px 0;
-}
-.detail-content {
-  @extend %font-content;
-  color: map-get($grey-color, 600);
-}
-.no-content {
-  @extend %flex-row-center-center;
-  @extend %font-h2;
-  color: map-get($grey-color, 300);
-  padding: 30px;
-}
 
-
-// 文字顏色、背景顏色  .text-primary-100 .bg-alert-900
-@each $name, $item in $color-array {
-  @each $key, $value in $item {
-    .text-#{$name}-#{$key} {
-      color: $value
-    }
-    .bg-#{$name}-#{$key} {
-      background-color: $value
-    }
+$map-height: 600px;
+.map-left {
+  height: $map-height;
+  overflow: auto;
+}
+.map-right {
+  height: $map-height;
+  padding-left: 15px;
+  .map {
+    width: 100%;
+    height: 100%;
+    background-color: map-get($grey-color, 300);
+    border-radius: 8px;
   }
 }
 
@@ -346,15 +282,15 @@ footer {
   left: 0;
   bottom: 0;
   background-color: map-get($primary-color, 600);
-  @extend %flex-row-center-center;
+  @include flex-row-center-center;
   .footer {
     width: 80%;
     color: map-get($grey-color, 100);
-    @extend %flex-row-space-between-center;
+    @include flex-row-space-between-center;
     .footer-brand {
-      @extend %flex-column-center-center;
+      @include flex-column-center-center;
       .footer-icon {
-        @extend %flex-row-center-center;
+        @include flex-row-center-center;
         margin-top: 8px;
         img {
           margin-right: 6px;
@@ -363,13 +299,14 @@ footer {
     }
     .footer-link {
       width: 432px;
-      @extend %flex-row-space-between-center;
+      @include flex-row-space-between-center;
       .footer-item {
-        @extend %flex-column-center-center;
+        @include flex-column-center-center;
         a {
           margin-bottom: 8px;
+          color: map-get($grey-color, 100);
           &:visited {
-            color: map-get($grey-color, 100);;
+            color: map-get($grey-color, 100);
           }
         }
       }

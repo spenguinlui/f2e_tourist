@@ -2,7 +2,7 @@
   <div>
     <div class="content">
       <div v-for="item in dataList" :key="item.ID" class="col-xl-4 p-15">
-        <Card :item="item" :type="dataType"/>
+        <Card :item="item" :type="dataType" :classType="'commonCard'"/>
       </div>
     </div>
   </div>
@@ -16,7 +16,6 @@
     name: 'hotels-list',
     data () {
       return {
-        text: "這裡是 hotels-list",
         // dataList: [
         //   {ID: "0", Name: "", Picture: { PictureUrl1: "", PictureDescription1: "" }},
         //   {ID: "1", Name: "", Picture: { PictureUrl1: "", PictureDescription1: "" }},
@@ -32,9 +31,6 @@
     },
     components: {
       Card
-    },
-    created() {
-      this.$store.dispatch("getAllDataList", "hotels");
     }
   }
 </script>

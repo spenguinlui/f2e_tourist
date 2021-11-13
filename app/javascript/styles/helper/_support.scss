@@ -3,43 +3,43 @@
 
 // flex-box
 // extend mixin 都會掛掉只能一個個刻
-%flex-row-center-center {
+@mixin flex-row-center-center {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-%flex-row-space-between-center {
+@mixin flex-row-space-between-center {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-%flex-row-start-center {
+@mixin flex-row-start-center {
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
 }
-%flex-column-center-center {
+@mixin flex-column-center-center {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-%flex-column-center-baseline {
+@mixin flex-column-center-baseline {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: baseline;
 }
-%flex-column-start-center {
+@mixin flex-column-start-center {
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
 }
-%flex-column-start-space-between {
+@mixin flex-column-start-space-between {
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -78,50 +78,50 @@ $font-size-content: 1rem; // 18px
 $font-size-button: 0.833rem; // 15px
 $font-size-caption: 0.694rem; // 12px
 
-%font-h1 {
+@mixin font-h1 {
   font-size: $font-size-h1;
   line-height: $font-size-h1 * 1.2;
   letter-spacing: 0.12em;
   font-weight: bold;
 }
-%font-h2 {
+@mixin font-h2 {
   font-size: $font-size-h2;
   line-height: $font-size-h2 * 1.2;
   letter-spacing: 0.12em;
   font-weight: bold;
 }
-%font-h3 {
+@mixin font-h3 {
   font-size: $font-size-h3;
   line-height: $font-size-h3 * 1.2;
   letter-spacing: 0.12em;
   font-weight: bold;
 }
-%font-h4 {
+@mixin font-h4 {
   font-size: $font-size-h4;
   line-height: $font-size-h4 * 1.2;
   letter-spacing: 0.12em;
   font-weight: bold;
 }
-%font-h5 {
+@mixin font-h5 {
   font-size: $font-size-h5;
   line-height: $font-size-h5 * 1.2;
   letter-spacing: 0.12em;
   font-weight: bold;
 }
 // 內文
-%font-content {
+@mixin font-content {
   font-size: $font-size-content;
   line-height: $font-size-content * 1.56;
   letter-spacing: 0.03em;
 }
 // 一般按鈕
-%font-button {
+@mixin font-button {
   font-size: $font-size-button;
   line-height: $font-size-button * 1.2;
   letter-spacing: 0.05em;
 }
 // tag
-%font-caption {
+@mixin font-caption {
   font-size: $font-size-caption;
   line-height: $font-size-caption * 1.2;
   letter-spacing: 0.05em;
@@ -139,23 +139,23 @@ $font-size-caption: 0.694rem; // 12px
 }
 
 // component
-%btn {
-  @extend %flex-row-center-center;
-  @extend %font-button;
+@mixin btn {
+  @include flex-row-center-center;
+  @include font-button;
   border-radius: 63px;
   cursor: default;
 }
-%btn-tag {
-  @extend %flex-row-center-center;
-  @extend %font-caption;
+@mixin btn-tag {
+  @include flex-row-start-center;
+  @include font-caption;
   border-radius: 21px;
   padding: 4px 10px;
   // cursor: default;
   cursor: pointer;
 }
 
-%tags-row {
-  @extend %flex-row-center-center;
+@mixin tags-row {
+  @include flex-row-start-center;
   padding: 5px 0;
   > div {
     margin-right: 8px;

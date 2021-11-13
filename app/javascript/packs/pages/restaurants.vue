@@ -8,6 +8,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import ClassBenner from '../components/class_benner.vue';
 
@@ -20,6 +21,9 @@ export default {
   },
   components: {
     ClassBenner
+  },
+  created() {
+    this.$store.dispatch("getAllDataList", "restaurants");
   }
 }
 </script>

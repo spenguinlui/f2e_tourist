@@ -19,8 +19,11 @@ export const storeObject = {
     dataDetail: state => state.dataDetail,
   },
   mutations: {
-    GET_ALL_AREA(state, areaList) {
+    GET_ALL_AREAS(state, areaList) {
       state.areaList = areaList;
+    },
+    UPDATE_AREAS(state, { areaIndex, cityIndex }) {
+      state.areaList[areaIndex].citys[cityIndex].is_open = !state.areaList[areaIndex].citys[cityIndex].is_open
     },
     UPDATE_DATA_LIST(state, dataList) {
       state.dataList = dataList;
@@ -32,7 +35,15 @@ export const storeObject = {
       state.currentArea = currentArea;
     },
     GET_SINGLE_DATA_DETAIL(state, dataDetail) {
+      if (dataDetail.Picture && dataDetail.Picture.PictureUrl1) {
+        dataDetail.showPicture = dataDetail.Picture.PictureUrl1;
+      } else {
+        dataDetail.showPicture = "";
+      }
       state.dataDetail = dataDetail;
+    },
+    UPDATE_SINGLE_DATA_SHOWPICTURE(state, PictureUrl) {
+      state.dataDetail.showPicture = PictureUrl
     },
     UPDATE_SEARCH_DATA(state, searchData) {
       state.searchData = searchData;
@@ -45,12 +56,15 @@ export const storeObject = {
         type: 'GET',
         dataType: 'json',
         success: res => {
-          commit("GET_ALL_AREA", res);
+          commit("GET_ALL_AREAS", res);
         },
         error: error => {
           console.log(error);            
         }
       })
+    },
+    toggleAreaList({ commit }, { areaIndex, cityIndex }) {
+      commit("UPDATE_AREAS", { areaIndex, cityIndex });
     },
     getAllDataList({ commit }, type) {
       Rails.ajax({
@@ -107,6 +121,9 @@ export const storeObject = {
           console.log(error);            
         }
       })
+    },
+    changeShowPicture({ commit }, PictureUrl) {
+      commit("UPDATE_SINGLE_DATA_SHOWPICTURE", PictureUrl);
     }
   }
 }

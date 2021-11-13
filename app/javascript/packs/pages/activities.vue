@@ -21,6 +21,9 @@ export default {
   },
   components: {
     ClassBenner
+  },
+  created() {
+    this.$store.dispatch("getAllDataList", "activities");
   }
 }
 </script>

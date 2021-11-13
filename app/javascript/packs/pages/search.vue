@@ -3,55 +3,27 @@
     <div class="container-fluid">
       <CommonBenner/>
       <div class="container">
-        <div v-if="searchData.scenicspots.length > 0" class="section">
-          <div class="section-title">
-            <div class="section-left">景點</div>
-            <div class="section-right">
-              <div class="btn-text btn-filled">查看更多</div>
-            </div>
-          </div>
+        <div v-if="searchData.scenicspots" class="section">
           <div class="section-list">
-            <div v-for="item in searchData.scenicspots" :key="item.ID" class="col-xl-4 p-15">
-              <Card :item="item" :type="'scenicspots'"/>
+            <div v-if="Object.keys(searchData.scenicspots).length > 0">
+              <div v-for="item in searchData.scenicspots" :key="item.ID" class="col-xl-4 p-15">
+                <Card :item="item" :type="'scenicspots'"/>
+              </div>
             </div>
-          </div>
-        </div>
-        <div  v-if="searchData.activities.length > 0" class="section">
-          <div class="section-title">
-            <div class="section-left">活動</div>
-            <div class="section-right">
-              <div class="btn-text btn-filled">查看更多</div>
+            <div v-if="Object.keys(searchData.activities).length > 0">
+              <div v-for="item in searchData.activities" :key="item.ID" class="col-xl-4 p-15">
+                <Card :item="item" :type="'activities'"/>
+              </div>
             </div>
-          </div>
-          <div class="section-list">
-            <div v-for="item in searchData.activities" :key="item.ID" class="col-xl-4 p-15">
-              <Card :item="item" :type="'activities'"/>
+            <div v-if="Object.keys(searchData.restaurants).length > 0">
+              <div v-for="item in searchData.restaurants" :key="item.ID" class="col-xl-4 p-15">
+                <Card :item="item" :type="'restaurants'"/>
+              </div>
             </div>
-          </div>
-        </div>
-        <div v-if="searchData.restaurants.length > 0" class="section">
-          <div class="section-title">
-            <div class="section-left">餐廳</div>
-            <div class="section-right">
-              <div class="btn-text btn-filled">查看更多</div>
-            </div>
-          </div>
-          <div class="section-list">
-            <div v-for="item in searchData.restaurants" :key="item.ID" class="col-xl-4 p-15">
-              <Card :item="item" :type="'restaurants'"/>
-            </div>
-          </div>
-        </div>
-        <div v-if="searchData.hotels.length > 0" class="section">
-          <div class="section-title">
-            <div class="section-left">住宿</div>
-            <div class="section-right">
-              <div class="btn-text btn-filled">查看更多</div>
-            </div>
-          </div>
-          <div class="section-list">
-            <div v-for="item in searchData.hotels" :key="item.ID" class="col-xl-4 p-15">
-              <Card :item="item" :type="'hotels'"/>
+            <div v-if="Object.keys(searchData.hotels).length > 0">
+              <div v-for="item in searchData.hotels" :key="item.ID" class="col-xl-4 p-15">
+                <Card :item="item" :type="'hotels'"/>
+              </div>
             </div>
           </div>
         </div>

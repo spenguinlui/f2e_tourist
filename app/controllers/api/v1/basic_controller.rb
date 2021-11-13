@@ -4,9 +4,9 @@ class Api::V1::BasicController < ApplicationController
     render json: citys
   end
 
-  def scenic_spots
-    scenic_spots = ApiPtxData.new.get_scenic_spots(query_set(params[:city]))
-    render json: { type: 'scenic_spots', data: scenic_spots }
+  def scenicspots
+    scenicspots = ApiPtxData.new.get_scenicspots(query_set(params[:city]))
+    render json: { type: 'scenicspots', data: scenicspots }
   end
 
   def activities
@@ -29,12 +29,12 @@ class Api::V1::BasicController < ApplicationController
   def query_set(city = nil)
     if city
       {
-        select: "ID, Name, Picture",
+        select: "ID, Name, Picture, Description",
         filter: [["Address"], [city]]
       }
     else
       {
-        select: "ID, Name, Picture"
+        select: "ID, Name, Picture, Description"
       }
     end
   end
