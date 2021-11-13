@@ -30,5 +30,5 @@ Rails.application.routes.draw do
   end
 
   # 讓所有 path 都掛回首頁，再交給 vue router 去轉
-  get '/*/*path', to: 'home#index'
+  get '*path', to: 'home#index'
 end
