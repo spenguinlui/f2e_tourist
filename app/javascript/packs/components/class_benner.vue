@@ -7,7 +7,7 @@
           <div class="relative">
             <div class="btn-choose btn-outline" @click.stop.prevent="showSelectBlock">選擇地區</div>
             <div v-show="areaSelectBlockVisible" ref="selectAreaBlockContainer">
-              <SelectAreaBlock/>
+              <SelectAreaBlock :hideSelectBlock="hideSelectBlock"/>
             </div>
           </div>
           <div class="btn-choose btn-outline">選擇日期</div>

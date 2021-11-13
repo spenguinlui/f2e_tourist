@@ -27,6 +27,7 @@
   import { mapGetters } from 'vuex';
 
   export default {
+    props: ['hideSelectBlock'],
     data () {
       return {
         // areaList: [
@@ -36,11 +37,11 @@
     },
     methods: {
       toggleList(areaIndex, cityIndex) {
-        this.$store.dispatch("toggleAreaList", { areaIndex, cityIndex })
-        // this.areasData[a_index].citys[c_index].is_open = !this.areasData[a_index].citys[c_index].is_open;
+        this.$store.dispatch("toggleAreaList", { areaIndex, cityIndex });
       },
       filterCityData(townName) {
         this.$store.dispatch("filterDataListWithTown", townName);
+        this.hideSelectBlock();
       },
       getCityTownList() {
         this.$store.dispatch("getCityTownList");
