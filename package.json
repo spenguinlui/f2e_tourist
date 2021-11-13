@@ -16,7 +16,6 @@
   },
   "version": "0.1.0",
   "devDependencies": {
-    "stylelint-config-standard": "^23.0.0",
     "webpack-dev-server": "^4.4.0"
   }
 }
