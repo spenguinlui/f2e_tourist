@@ -23,7 +23,7 @@ export default {
     ClassBenner
   },
   created() {
-    this.$store.dispatch("getAllDataList", "restaurants");
+    this.$store.dispatch("getAllDataList", "hotels");
   }
 }
 </script>
