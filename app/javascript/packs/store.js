@@ -5,6 +5,8 @@ export const storeObject = {
     areaList: [],
     dataList: [],
     dataType: "",
+    themeDataList: [],
+    themeName: "",
     currentArea: "",
     currentDataId: "",
     searchData: {},        // 包含景點、活動、餐廳、住宿四個物件，底下個別是 dataList
@@ -14,6 +16,8 @@ export const storeObject = {
     areaList: state => state.areaList,
     dataList: state => state.dataList,
     dataType: state => state.dataType,
+    themeDataList: state => state.themeDataList,
+    themeName: state => state.themeName,
     currentArea: state => state.currentArea,
     searchData: state => state.searchData,
     dataDetail: state => state.dataDetail,
@@ -30,6 +34,12 @@ export const storeObject = {
     },
     UPDATE_CURRENT_DATA_TYPE(state, dataType) {
       state.dataType = dataType;
+    },
+    UPDATE_THEME_DATA_LIST(state, themeDataList) {
+      state.themeDataList = themeDataList;
+    },
+    UPDATE_THEME_NAME(state, themeName) {
+      state.themeName = themeName;
     },
     UPDATE_CURRENT_DATA_AREA(state, currentArea) {
       state.currentArea = currentArea;
@@ -50,6 +60,7 @@ export const storeObject = {
     }
   },
   actions: {
+    // 地區列表
     getCityTownList({ commit }) {
       Rails.ajax({
         url: "/api/v1/citys",
@@ -66,6 +77,8 @@ export const storeObject = {
     toggleAreaList({ commit }, { areaIndex, cityIndex }) {
       commit("UPDATE_AREAS", { areaIndex, cityIndex });
     },
+
+    // 取得單一類型資料列表
     getAllDataList({ commit }, type) {
       Rails.ajax({
         url: `/api/v1/${type}`,
@@ -80,6 +93,24 @@ export const storeObject = {
         }
       })
     },
+
+    // 取得隨機主題資料列表
+    getRandomThemeDataList({ commit }) {
+      Rails.ajax({
+        url: "/api/v1/theme",
+        type: 'GET',
+        dataType: 'json',
+        success: res => {
+          commit("UPDATE_THEME_DATA_LIST", res.data);
+          commit("UPDATE_THEME_NAME", res.theme_name);
+        },
+        error: error => {
+          console.log(error);            
+        }
+      })
+    },
+
+    // 地區篩選資料
     filterDataListWithTown({ commit }, town) {
       const type = this.state.dataType;
       Rails.ajax({
@@ -95,6 +126,8 @@ export const storeObject = {
         }
       })
     },
+
+    // 關鍵字搜尋
     filterDataListWithKeyword({ commit }, keyword){
       Rails.ajax({
         url: `/api/v1/search?keyword=${keyword}`,
@@ -108,6 +141,8 @@ export const storeObject = {
         }
       })
     },
+
+    // detail
     getSingleDataDetail({ commit }, { dataType, dataId }) {
       // 這裡的 type 要用 Card > Detail 傳進來的才會是這張頁面的類型
       Rails.ajax({

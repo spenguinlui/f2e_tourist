@@ -107,7 +107,19 @@ h5, .h5 {
     }
     .hot-right {}
   }
-  
+  .card-slider-row {
+    width: 100%;
+    @include flex-row-center-center;
+    flex-wrap: nowrap;
+    overflow: scroll;
+    .row-item {
+      padding: 15px;
+      flex: 0 0 33%;
+      &:nth-child(1) {
+        margin-left: 100px;
+      }
+    }
+  }
 }
 
 .home-theme {

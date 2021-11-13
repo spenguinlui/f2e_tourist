@@ -132,7 +132,6 @@
       getDetail() {
         const dataId = this.dataId = this.$route.params.id;
         const dataType = this.dataType = this.$route.params.type;
-        console.log(this.dataType)
         this.$store.dispatch("getSingleDataDetail", { dataType, dataId })
       },
       checkImage(PictureUrl){

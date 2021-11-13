@@ -34,23 +34,23 @@
       </div>
       <div class="home-section">
         <div class="hot-tittle">
-          <div class="hot-left">Rainbow Life!</div>
+          <div class="hot-left">{{ themeName }}</div>
           <div class="hot-right">
             <div class="btn-text btn-filled">查看更多</div>
           </div>
         </div>
-        <div v-if="false" class="card-slider-row">
-          <div class="col-xl-3">
-            <Card/>
+        <div class="card-slider-row">
+          <div v-for="item in themeDataList.scenicspots" :key="item.ID" class="row-item">
+            <Card :item="item" :type="'scenicspots'"/>
           </div>
-          <div class="col-xl-3">
-            <Card/>
+          <div v-for="item in themeDataList.activities" :key="item.ID" class="row-item">
+            <Card :item="item" :type="'activities'"/>
           </div>
-          <div class="col-xl-3">
-            <Card/>
+          <div v-for="item in themeDataList.restaurants" :key="item.ID" class="row-item">
+            <Card :item="item" :type="'restaurants'"/>
           </div>
-          <div class="col-xl-3">
-            <Card/>
+          <div v-for="item in themeDataList.hotels" :key="item.ID" class="row-item">
+            <Card :item="item" :type="'hotels'"/>
           </div>
         </div>
       </div>
@@ -61,6 +61,7 @@
 <script>
 import GlobalSearch from '../components/global_search.vue';
 import Card from '../components/card.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'home',
@@ -69,9 +70,15 @@ export default {
       text: '這是 home'
     }
   },
+  computed: {
+    ...mapGetters(['themeDataList', 'themeName'])
+  },
   components: {
     GlobalSearch,
     Card
+  },
+  created() {
+    this.$store.dispatch("getRandomThemeDataList");
   }
 }
 </script>

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get 'detail/hotels/:id' => 'detail#hotels'            # 取得單個住宿詳細資料
 
       get 'search' => 'advanced#keyword_search'   # 關鍵字搜尋
+      get 'theme' => 'advanced#theme'             # 取得 Tag 主題式資料
     end
   end
   
