@@ -51,7 +51,6 @@
       }
     },
     components: {
-      Media,
       GlobalSearch
     }
   }
