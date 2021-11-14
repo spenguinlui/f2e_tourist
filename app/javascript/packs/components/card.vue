@@ -19,9 +19,10 @@
           <img src="../../images/icon/star-outline.svg" alt="空星icon">
         </div>
         <div class="card-tags">
-          <div class="card-tag">文化活動</div>
-          <div class="card-tag">熱鬧</div>
-          <div class="card-tag">一年一度</div>
+          <template v-for="(tag, index) in item.Tag">
+            <div class="card-tag" :key="index">{{ tag }}</div>
+          </template>
+          <div v-if="!item.Tag" class="card-tag">尚未建立</div>
         </div>
         <div v-if="classType === 'full-card'" class="card-text">
           {{ item.Description }}

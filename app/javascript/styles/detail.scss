@@ -74,6 +74,9 @@
     }
     .more-btn {
       @include btn-outline;
+      > img {
+        width: 18px;
+      }
     }
   }
 }

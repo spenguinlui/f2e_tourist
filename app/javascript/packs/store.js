@@ -100,6 +100,7 @@ export const storeObject = {
         type: 'GET',
         dataType: 'json',
         success: res => {
+          console.log(res.data, res.data[0].TAG)
           commit("UPDATE_DATA_LIST", res.data);
           commit("UPDATE_CURRENT_DATA_TYPE", res.type);
         },
@@ -177,23 +178,23 @@ export const storeObject = {
       this.state.heartIsLoading = true
       commit("UPDATE_HEART_LOADING", true);
       let heartArray = JSON.parse(localStorage.getItem("touristHeart"));
-      console.log("得到的", heartArray)
+      // console.log("得到的", heartArray)
       let isHeart = (heartArray.indexOf(dataId) >= 0);
       Rails.ajax({
         url: `/api/v1/local_data/${dataId}?heart=${isHeart}`,
         type: 'PATCH',
         dataType: 'json',
         success: res => {
-          console.log(res)
+          // console.log(res)
           if(res.status) {
             if (!isHeart) {
               heartArray.push(dataId);
-              console.log("要增加的", JSON.stringify(heartArray))
+              // console.log("要增加的", JSON.stringify(heartArray))
               localStorage.setItem("touristHeart", JSON.stringify(heartArray));
               commit("UPDATE_HEART_LOADING", false);
             } else {
               heartArray.pop(dataId);
-              console.log("要移除的", JSON.stringify(heartArray))
+              // console.log("要移除的", JSON.stringify(heartArray))
               localStorage.setItem("touristHeart", JSON.stringify(heartArray));
               commit("UPDATE_HEART_LOADING", false);
             }
