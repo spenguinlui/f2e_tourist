@@ -62,9 +62,9 @@
         const heartArray = JSON.parse(localStorage.getItem("touristHeart"));
         if (heartArray) {
           localStorage.setItem("touristHeart", JSON.stringify([]));
-        }
-        if (heartArray.indexOf(id) >= 0) {
-          this.heart = true;
+          if (heartArray.indexOf(id) >= 0) {
+            this.heart = true;
+          }
         }
       }
     },
