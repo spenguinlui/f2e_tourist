@@ -37,7 +37,6 @@
 </template>
 
 <script>
-  import Media from 'vue-media';
   import GlobalSearch from './global_search.vue';
 
   export default {
