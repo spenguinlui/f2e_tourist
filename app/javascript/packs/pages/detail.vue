@@ -2,9 +2,9 @@
   <div>
     <div class="container-fluid">
       <div class="container">
-        <div class="breadcrumbs">這裡是麵包屑</div>
+        <div class="breadcrumbs">未完成 > 麵包屑 > 未完成</div>
         <div class="detail-header">
-          <div class="detail-title col-xl-9">
+          <div class="detail-title">
             <div class="title-text">{{ dataDetail.Name }}</div>
             <div class="detail-comment-block">
               <div class="detail-stars">
@@ -17,15 +17,15 @@
               <div class="detail-comment-count">{{ dataDetail.Comment && dataDetail.Comment.length || '100' }} 則評論</div>
             </div>
             <div class="detail-tags">
-              <div class="btn-tag-filled">文化活動</div>
-              <div class="btn-tag-filled">熱鬧</div>
-              <div class="btn-tag-filled">一年一度</div>
+              <template v-for="tag in ['文化活動', '熱鬧', '一年一度']">
+                <div class="detail-tag" :key="tag">{{ tag }}</div>
+              </template>
             </div>
           </div>
-          <div class="detail-connect col-xl-3">
-            <div class="btn-icon-text btn-filled">撥打電話</div>
-            <div class="btn-icon btn-outline"><img src="../../images/icon/web.svg" alt="前往網站icon"></div>
-            <div class="btn-icon btn-outline"><img src="../../images/icon/heart-outline.svg" alt="前往網站icon"></div>
+          <div class="detail-connect">
+            <a class="call-btn" :href="`tel:${dataDetail.Phone}`">撥打電話<img src="../../images/icon/phone.svg" alt="撥打電話icon"></a>
+            <div class="more-btn"><img src="../../images/icon/web.svg" alt="前往網站icon"></div>
+            <div class="more-btn"><img src="../../images/icon/heart-outline.svg" alt="加入我的最愛icon"></div>
           </div>
         </div>
         <div class="detail-container">
@@ -64,23 +64,33 @@
         </div>
         <div class="detail-feature">
           <div class="detail-title">{{ classType_zh }}特色</div>
-          <div v-if="!dataDetail.Features1" class="no-content">目前資料不足！</div>
-          <div v-if="dataDetail.Features1" class="detail-article">{{ dataDetail.Features1 }}</div>
+          <div v-if="!dataDetail.DescriptionDetail" class="no-content">目前資料不足！</div>
+          <div v-if="dataDetail.DescriptionDetail" class="detail-content">{{ dataDetail.DescriptionDetail }}</div>
         </div>
         <div class="detail-feature">
           <div class="detail-title">{{ dataDetail === "restaurants" ? '餐點推薦' : '服務設施' }}</div>
           <div v-if="!dataDetail.Features2" class="no-content">目前資料不足！</div>
-          <div v-if="dataDetail.Features2" class="detail-article">{{ dataDetail.Features2 }}</div>
+          <div v-if="dataDetail.Features2" class="detail-content">{{ dataDetail.Features2 }}</div>
+        </div>
+        <div v-if="dataDetail.ServiceInfo" class="detail-feature">
+          <div class="detail-title">服務設施</div>
+          <div v-if="dataDetail.ServiceInfo" class="detail-content">{{ dataDetail.ServiceInfo }}</div>
         </div>
         <div class="detail-traffic">
           <div class="detail-title">交通方式</div>
-          <div v-if="!dataDetail.Traffic" class="no-content">製作中！</div>
-          <div v-if="dataDetail.Traffic" class="detail-article">{{ dataDetail.Traffic }}</div>
+          <div v-if="!dataDetail.TravelInfo" class="no-content">製作中！</div>
+          <div v-if="dataDetail.TravelInfo" class="detail-content">{{ dataDetail.TravelInfo }}</div>
         </div>
         <div class="detail-nearby">
-          <div class="detail-title">附近景點</div>
-          <div class="col-xl-4">製作中</div>
-          <div class="col-xl-8">製作中</div>
+          <div class="detail-title">鄰近景點</div>
+          <div class="detail-nearby-block">
+            <div class="detail-left">製作中</div>
+            <div class="detail-right">
+              <div class="map">
+                製作中
+              </div>
+            </div>
+          </div>
         </div>
         <div class="detail-comment">
           <div class="detail-title">旅客評價</div>
@@ -91,8 +101,10 @@
         </div>
         <div class="detail-recommend">
           <div class="detail-title">這些景點大家也推</div>
-          <div v-if="dataDetail.Recommend">
-            <Card/><Card/><Card/>
+          <div class="recommend-container">
+            <div v-for="item in recommendList" :key="item.ID" class="card-container">
+              <Card :key="item.ID" :item="item" :type="dataType" :classType="'commonCard'"/>
+            </div>
           </div>
         </div>
       </div>
@@ -120,26 +132,43 @@
             return "餐廳";
           case "hotels":
             return "飯店";
-          case "scenic_spots":
+          case "scenicspots":
             return "景點";
           default:
             return "其他";
         }
       },
-      ...mapGetters(['dataDetail'])
+      ...mapGetters(['dataDetail', 'recommendList'])
     },
     methods: {
       getDetail() {
         const dataId = this.dataId = this.$route.params.id;
         const dataType = this.dataType = this.$route.params.type;
-        this.$store.dispatch("getSingleDataDetail", { dataType, dataId })
+        this.$store.dispatch("getSingleDataDetail", { dataType, dataId });
       },
-      checkImage(PictureUrl){
+      checkImage(PictureUrl) {
         this.$store.dispatch("changeShowPicture", PictureUrl);
+      },
+      getNearBusStops() {
+        // ... 等 API 建好
+      },
+      getNearBy() {
+        // ... 等 API 建好
+      },
+      getComments() {
+        // ... 等 comment db
+      },
+      getRecommends() {
+        this.$store.dispatch("getRecommendList", this.dataType);
       }
     },
     created() {
       this.getDetail();
+      // 分別執行，怕全部一起要會太久
+      // this.getNearBusStops();
+      // this.getNearBy();
+      // this.getComments();
+      this.getRecommends();
     },
     components: {
       Card

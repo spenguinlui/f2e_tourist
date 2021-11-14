@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <div class="content">
-      <div class="col-xl-4 map-left">
-        <div v-for="item in dataList" :key="item.ID">
+  <div class="content">
+    <div class="map-container">
+      <div class="map-left">
+        <div v-for="item in dataList" :key="item.ID" class="card-container">
           <Card :item="item" :type="dataType" :classType="'full-card'"/>
         </div>
       </div>
-      <div class="col-xl-8 map-right">
+      <div class="map-right">
         <div class="map">
-
+          地圖功能趕工中
         </div>
       </div>
     </div>

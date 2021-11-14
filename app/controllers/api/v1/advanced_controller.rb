@@ -40,6 +40,20 @@ class Api::V1::AdvancedController < ApplicationController
     render json: { theme_name: @tag.theme_name, data: responce_data }
   end
 
+  def recommend
+    params[:type]
+    recommend_ids = LocalDatum.order('favorite_count DESC').limit(3).ids
+    # recommend_ids = LocalDatum.where("ptx_data_type = ?", params[:type]).order('favorite_count DESC').limit(3).ids
+    query_obj = {
+      top: 3,
+      select: "ID, Name, Picture",
+      filter: [["ID"], recommend_ids]
+    }
+    responce_data =  get_response_data(params[:type], query_obj)
+    
+    render json: responce_data
+  end
+
   private
 
   def search_with_all_type_key_word(query_obj)
@@ -92,6 +106,21 @@ class Api::V1::AdvancedController < ApplicationController
       else
         LocalDatum.create!(ptx_data_id: data["ID"], search_count: 1)
       end
+    end
+  end
+
+  def get_response_data(type, query_obj)
+    case type
+    when "activities"
+      ApiPtxData.new.get_activities(query_obj)
+    when "restaurants"
+      ApiPtxData.new.get_restaurants(query_obj)
+    when "hotels"
+      ApiPtxData.new.get_hotels(query_obj)
+    when "scenicspots"
+      ApiPtxData.new.get_scenicspots(query_obj)
+    else
+      ApiPtxData.new.get_scenicspots(query_obj)
     end
   end
 end

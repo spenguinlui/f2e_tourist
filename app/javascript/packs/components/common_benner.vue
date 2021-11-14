@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="benner-container" :style="{ backgroundImage: bgImage }">
-      <h1 class="title">搜尋結果</h1>
+      <h1 class="benner-title">搜尋結果</h1>
     </div>
   </div>
 </template>

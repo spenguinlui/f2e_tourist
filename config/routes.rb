@@ -22,6 +22,9 @@ Rails.application.routes.draw do
       get 'search' => 'advanced#keyword_search'   # 關鍵字搜尋
       get 'theme' => 'advanced#theme'             # 取得 Tag 主題式資料
       get 'hot' => 'advanced#hot'                 # 取得熱門景點、活動、餐廳、住宿
+      get 'recommend' => 'advanced#recommend'     # 取得指定類型推薦列表 x3
+
+      resources :local_data, only:[:update]       # 直接更新某筆資料(目前只有按讚)
     end
   end
   

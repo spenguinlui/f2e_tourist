@@ -1,0 +1,186 @@
+nav {
+  @include flex-column-center-center;
+  @include screen-up {
+    @include flex-row-space-between-center;
+  }
+  @include content-padding;
+  width: 100%;
+  height: $nav-heght;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: map-get($grey-color, 200);
+  z-index: 10;
+  .nav {
+    @include flex-row-space-between-center;
+    width: inherit;
+    .nav-block {
+      &.mp-not-display {
+        @include mp-not-display;
+      }
+      @include flex-row-center-center;
+      &.m-menu {
+        cursor: pointer;
+        @include screen-up  {
+          display: none;
+        }
+        
+      }
+    }
+  }
+  .nav-item {
+    margin-right: 12px;
+    &.mp-not-display {
+      @include mobile {
+        display: none;
+      }
+      @include pad {
+        display: none;
+      }
+    }
+    &.nav-btn {
+      @include btn-outline;
+      @include text-icon-2-icon;
+    }
+    &.nav-btn-f {
+      @include btn-filled;
+      @include btn-icon;
+      @include full-screen {
+        @include btn-icon-text;
+      }
+    }
+  }
+  .m-nav {
+    height: 180px;
+    position: fixed;
+    left: 0;
+    top: 60px;
+    @include flex-row-center-center;
+    @include screen-up {
+      display: none;
+    }
+    width: inherit;
+    flex-wrap: wrap;
+    background-color: map-get($grey-color, 200);
+    .nav-block {
+      @include flex-row-center-center;
+      width: inherit;
+      padding: 10px;
+      .nav-item {
+        margin-right: 12px;
+        &.nav-btn {
+          @include btn-outline;
+          @include btn-icon-text;
+          // 真的太小了
+          @media screen and (max-width: 360px) {
+            @include btn-icon;
+          }
+          img {
+            margin: 0;
+          }
+        }
+        &.nav-btn-f {
+          @include btn-filled;
+          @include btn-icon-text;
+        }
+      }
+    }
+  }
+}
+
+// 各地方搜尋欄位
+.search-bar {
+  background-color: map-get($grey-color, 100);
+  color: map-get($grey-color, 500);
+  border-radius: 61px;
+  @include flex-row-space-between-center;
+  @include font-caption;
+  font-style: normal;
+  input {
+    width: 100%;
+    background-color: inherit;
+  }
+  img {
+    @include font-h5;
+  }
+}
+.search-bar-xl {
+  @include font-button;
+  width: 271px;
+  height: 50px;
+  padding: 18px 40px;
+  @include screen-up {
+    width: 562px;
+    height: 74px;
+    padding: 18px 40px;
+    input, img {
+      @include font-h5;
+    }
+  }
+  .mp-not-display {
+    @include mp-not-display;
+  }
+  .mp-display {
+    @include screen-up {
+      display: none;
+    }
+  }
+}
+.search-bar-s {
+  width: 271px;
+  height: 31px;
+  padding: 18px 16px;
+}
+
+footer {
+  width: 100%;
+  height: $footer-m-height;
+  @include flex-column-center-center;
+  @include screen-up {
+    height: $footer-height;
+  }
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: map-get($primary-color, 600);
+  .footer {
+    width: 90%;
+    @include pad-up {
+      width: 80%;
+    }
+    color: map-get($grey-color, 100);
+    @include flex-column-center-center;
+    @include screen-up {
+      @include flex-row-center-center;
+    }
+    .footer-brand {
+      @include flex-column-center-center;
+      .footer-icon {
+        @include flex-row-center-center;
+        margin-top: 8px;
+        img {
+          margin-right: 6px;
+        }
+      }
+    }
+    .footer-link {
+      width: 100%;
+      padding: 20px 10px;
+      @include pad-up {
+        width: 430px;
+        padding: 20px;
+      }
+      @include flex-row-space-between-center;
+      .footer-item {
+        @include flex-column-center-center;
+        a {
+          margin-bottom: 8px;
+          color: map-get($grey-color, 100);
+          &:visited {
+            color: map-get($grey-color, 100);
+          }
+        }
+      }
+    }
+  }
+}

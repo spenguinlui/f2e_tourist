@@ -11,7 +11,9 @@ export const storeObject = {
     currentArea: "",
     currentDataId: "",
     searchData: {},        // 包含景點、活動、餐廳、住宿四個物件，底下個別是 dataList
-    dataDetail: {}
+    dataDetail: {},
+    heartIsLoading: false, // 加入我的最愛是否程序中
+    recommendList: [],     // 只會有 3筆，當前類型按讚次數排名前三
   },
   getters: {
     areaList: state => state.areaList,
@@ -23,6 +25,8 @@ export const storeObject = {
     currentArea: state => state.currentArea,
     searchData: state => state.searchData,
     dataDetail: state => state.dataDetail,
+    heartIsLoading: state => state.heartIsLoading,
+    recommendList: state => state.recommendList
   },
   mutations: {
     GET_ALL_AREAS(state, areaList) {
@@ -62,6 +66,12 @@ export const storeObject = {
     },
     UPDATE_SEARCH_DATA(state, searchData) {
       state.searchData = searchData;
+    },
+    UPDATE_HEART_LOADING(state, isProgress) {
+      state.heartIsLoading = isProgress;
+    },
+    GET_RECOMMEND_LIST(state, recommendList) {
+      state.recommendList = recommendList;
     }
   },
   actions: {
@@ -162,7 +172,40 @@ export const storeObject = {
       })
     },
 
-    // detail
+    // 功能觸發
+    changeFavoriteToData({ commit }, dataId) {
+      this.state.heartIsLoading = true
+      commit("UPDATE_HEART_LOADING", true);
+      let heartArray = JSON.parse(localStorage.getItem("touristHeart"));
+      console.log("得到的", heartArray)
+      let isHeart = (heartArray.indexOf(dataId) >= 0);
+      Rails.ajax({
+        url: `/api/v1/local_data/${dataId}?heart=${isHeart}`,
+        type: 'PATCH',
+        dataType: 'json',
+        success: res => {
+          console.log(res)
+          if(res.status) {
+            if (!isHeart) {
+              heartArray.push(dataId);
+              console.log("要增加的", JSON.stringify(heartArray))
+              localStorage.setItem("touristHeart", JSON.stringify(heartArray));
+              commit("UPDATE_HEART_LOADING", false);
+            } else {
+              heartArray.pop(dataId);
+              console.log("要移除的", JSON.stringify(heartArray))
+              localStorage.setItem("touristHeart", JSON.stringify(heartArray));
+              commit("UPDATE_HEART_LOADING", false);
+            }
+          }
+        },
+        error: error => {
+          console.log(error);            
+        }
+      })
+    },
+
+    // detail ---------
     getSingleDataDetail({ commit }, { dataType, dataId }) {
       // 這裡的 type 要用 Card > Detail 傳進來的才會是這張頁面的類型
       Rails.ajax({
@@ -179,6 +222,19 @@ export const storeObject = {
     },
     changeShowPicture({ commit }, PictureUrl) {
       commit("UPDATE_SINGLE_DATA_SHOWPICTURE", PictureUrl);
+    },
+    getRecommendList({ commit }, dataType) {
+      Rails.ajax({
+        url: `/api/v1/recommend?type=${dataType}`,
+        type: 'GET',
+        dataType: 'json',
+        success: res => {
+          commit("GET_RECOMMEND_LIST", res);
+        },
+        error: error => {
+          console.log(error);            
+        }
+      })
     }
   }
 }

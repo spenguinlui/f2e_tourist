@@ -134,7 +134,6 @@ class ApiPtxData
     query = []
     query << ["$top", (params[:top] ? params[:top] : @top)]
     params[:select] && query << ["$select", params[:select]]
-    puts params[:filter]
     params[:filter] && query << ["$filter", get_keyowrds_query(params[:filter][0], params[:filter][1])]
     encode_query = URI.encode_www_form(query)
     get_response(

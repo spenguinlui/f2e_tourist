@@ -1,35 +1,57 @@
-@import "helper/variables";
-@import "helper/support";
+// @import "helper/variables";
+// @import "helper/support";
+
+@mixin btn {
+  @include flex-row-center-center;
+  @include font-button;
+  border-radius: 63px;
+  cursor: pointer;
+}
+@mixin btn-tag {
+  @include flex-row-start-center;
+  @include font-caption;
+  border-radius: 21px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+@mixin tags-row {
+  @include flex-row-start-center;
+  padding: 5px 0;
+  > div {
+    margin-right: 8px;
+  }
+}
 
 // 先用於 header、buttom-m、content
-.btn-text {
+@mixin btn-text {
   @include btn;
   padding: 9px 21px;
 }
-.btn-icon-text {
+@mixin btn-icon-text {
   @include btn;
   padding: 9px 21px;
-  div, img {
+  img {
     width: 14px;
     height: 14px;
-    svg {
-      fill: map-get($primary-color, 700);
-    }
     margin-left: 9px;
   }
 }
-.btn-icon {
+@mixin btn-icon {
   @include btn;
   padding: 10px;
 }
-.btn-choose {
+@mixin btn-choose {
   @include btn;
-  width: 271px;
+  width: 128px;
+  @include screen {
+    width: 271px;
+  }
   align-items: start;
   padding: 8px 12px 8px 16px;
 }
 
-.btn-tag-filled {
+@mixin btn-tag-filled {
   @include btn-tag;
   background-color: map-get($primary-color, 600);
   color: map-get($grey-color, 100);
@@ -50,7 +72,7 @@
   }
 }
 
-.btn-tag-outline {
+@mixin btn-tag-outline {
   @include btn-tag;
   background-color: map-get($grey-color, 100);
   color: map-get($primary-color, 600);
@@ -74,7 +96,7 @@
   }
 }
 
-.btn-filled {
+@mixin btn-filled {
   background-color: map-get($primary-color, 700);
   color: map-get($grey-color, 100);
   border: 1px solid map-get($primary-color, 700);
@@ -102,7 +124,7 @@
 		color: map-get($grey-color, 100);
 	}
 }
-.btn-outline {
+@mixin btn-outline {
   background-color: map-get($grey-color, 100);
   color:  map-get($primary-color, 700);
   border: 1px solid map-get($primary-color, 700);

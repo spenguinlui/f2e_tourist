@@ -2,13 +2,16 @@
   <div>
     <div class="container-fluid">
       <div class="home-benner">
+        <div class="home-benner-title">
+          開始實現你的夢想旅程
+        </div>
         <GlobalSearch :size="'xl'"/>
       </div>
       <div class="section home-section">
         <div class="section-title">
           <div class="section-left">熱門景點</div>
           <div class="section-right">
-            <div class="btn-text btn-filled">查看更多</div>
+            <div class="section-btn">查看更多</div>
           </div>
         </div>
         <div class="card-slider-row">
@@ -29,14 +32,14 @@
       <div class="home-theme">
         <div>
           <div class="theme-tittle">你不能錯過的注目景點！</div>
-          <router-link :to="{ name: 'theme' }" class="btn-text btn-filled">賞楓秘境看這裡</router-link>
+          <router-link :to="{ name: 'theme' }" class="theme-btn">賞楓秘境看這裡</router-link>
         </div>
       </div>
-      <div class="home-section">
-        <div class="hot-tittle">
-          <div class="hot-left">{{ themeName }}</div>
-          <div class="hot-right">
-            <div class="btn-text btn-filled">查看更多</div>
+      <div class="section home-section">
+        <div class="section-title">
+          <div class="section-left">{{ themeName }}</div>
+          <div class="section-right">
+            <div class="section-btn">查看更多</div>
           </div>
         </div>
         <div class="card-slider-row">

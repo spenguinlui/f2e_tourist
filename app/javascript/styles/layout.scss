@@ -1,10 +1,16 @@
 @import "reset";
+
 @import "helper/_variables";
 @import "helper/_grid";
 @import "helper/_support";
-@import "detail.scss";
-@import "card.scss";
+
 @import 'buttons.scss';
+@import "card.scss";
+@import "navigator.scss";
+
+@import "class-benner.scss";
+@import "detail.scss";
+
 
 * {
   box-sizing: border-box;
@@ -31,10 +37,6 @@ h5, .h5 {
   font-weight: bold;
 }
 
-.p-15 {
-  padding: 15px;
-}
-
 // 文字顏色、背景顏色  .text-primary-100 .bg-alert-900
 @each $name, $item in $color-array {
   @each $key, $value in $item {
@@ -47,42 +49,35 @@ h5, .h5 {
   }
 }
 
-.search-bar {
-  background-color: map-get($grey-color, 100);
-  color: map-get($grey-color, 500);
-  border-radius: 61px;
-  @include flex-row-space-between-center;
-  @include font-caption;
-  font-style: normal;
-  input {
-    width: 100%;
-    background-color: inherit;
-  }
-}
-.search-bar-xl {
-  width: 562px;
-  height: 74px;
-  padding: 18px 40px;
-  input, img {
-    @include font-h5;
-  }
-}
-.search-bar-s {
-  width: 271px;
-  height: 31px;
-  padding: 18px 16px;
-}
-
 .home-benner {
+  width: 100%;
   height: 686px;
-  background-image: url('../images/home-benner.png');
-  @include flex-row-center-center;
+  @include benner-background('../images/home-benner.png');
+  @include flex-column-center-center;
+  .home-benner-title {
+    @include font-h1;
+    padding: 20px;
+    text-align: center;
+    color: map-get($grey-color, 100);
+    text-shadow: 0px 2px 10px rgba(128, 128, 128, 0.7);
+  }
 }
 
 .section {
-  padding: 35px 0px;
+  padding-top: $section-padding-y;
+  padding-bottom: $section-padding-y;
   &.home-section {
-    padding: 35px 150px;
+    @include content-padding;
+    overflow: hidden;
+    .card-slider-row {
+      width: 100vw;
+      @include flex-row-start-center;
+      flex-wrap: nowrap;
+      overflow: scroll;
+      .row-item {
+        @include card-flex;
+      }
+    }
   }
   .section-title {
     @include flex-row-space-between-center;
@@ -90,69 +85,29 @@ h5, .h5 {
       @include font-h3;
       color: #000000;
     }
-    .section-right {}
-  }
-  .section-list {
-    @include clearfix;
-  }
-}
-
-.home-section {
-  padding: 35px 150px;
-  .hot-tittle {
-    @include flex-row-space-between-center;
-    .hot-left {
-      @include font-h3;
-      color: #000000;
-    }
-    .hot-right {}
-  }
-  .card-slider-row {
-    width: 100%;
-    @include flex-row-center-center;
-    flex-wrap: nowrap;
-    overflow: scroll;
-    .row-item {
-      padding: 15px;
-      flex: 0 0 33%;
-      &:nth-child(1) {
-        margin-left: 100px;
+    .section-right {
+      .section-btn {
+        @include btn-text;
+        @include btn-filled;
       }
     }
   }
 }
 
 .home-theme {
+  width: 100%;
   height: 339px;
-  background-image: url('../images/theme-benner.png');
+  @include benner-background('../images/theme-benner.png');
   @include flex-row-center-center;
   .theme-tittle {
     @include font-h2;
-    text-shadow: 0px 2px 10px rgba(128, 128, 128, 0.7);
-    padding-bottom: 12px;
+    padding: 20px;
+    text-shadow: $tilte-shadow;
     color: map-get($grey-color, 100);
   }
-}
-
-nav {
-  width: 100%;
-  height: 60px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  background-color: map-get($grey-color, 200);
-  padding: 0px 150px;
-  z-index: 10;
-  @include flex-row-space-between-center;
-  .nav {
-    @include flex-row-space-between-center;
-    width: inherit;
-    .nav-block {
-      @include flex-row-center-center;
-      .nav-item {
-        margin-right: 12px;
-      }
-    }
+  .theme-btn {
+    @include btn-text;
+    @include btn-filled;
   }
 }
 
@@ -161,122 +116,61 @@ nav {
   position: relative;
   margin-right: auto;
   margin-left: auto;
-  margin-bottom: 108px;
+  margin-bottom: $footer-m-height;
+  @include screen-up {
+    margin-bottom: $footer-height;
+  }
   min-height: 600px;
   .container {
-    padding: 35px 150px;
+    padding-top: $section-padding-y;
+    padding-bottom: $section-padding-y;
+    @include content-padding;
     .content {
-      @include clearfix;
-    }
-  }
-}
-
-// 共用大小 - 圖片寫在元件內
-.class-benner {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  height: $class-benner-heught;
-}
-
-.benner-container {
-  margin-top: 60px;
-  padding: 35px 150px;
-  height: $class-benner-heught;
-  .title {
-    color: map-get($grey-color, 100);
-  }
-  .benner-btn-container {
-    @include flex-row-space-between-center;
-    margin-top: 3px;
-    .left-btn, .right-btn {
       @include flex-row-center-center;
-    }
-    .left-btn > div:nth-child(2), .right-btn > div:nth-child(2) {
-      margin-left: 20px
-    }
-  }
-}
-.select-area-block {
-  width: 390px;
-  padding: 28px 24px;
-  position: absolute;
-  left: 0;
-  top: 40px;
-  background-color: map-get($grey-color, 100);
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  z-index: 1;
-  cursor: default;
-  .area-container {
-    height: 400px;
-    overflow: auto;
-    margin-top: 12px;
-    .area {
-      color: map-get($grey-color, 700);
-      padding-top: 12px;
-      .v-area {
-        @include font-caption;
-      }
-      .area-block {
-        border-bottom: 1px solid map-get($grey-color, 300);
-        padding: 7px 0;
-        .area-title {
-          @include flex-row-start-center;
-          padding: 4px 0 7px 0;
-          .title-text {
-            @include font-content;
-          }
-          .title-icon {
-            margin-left: 8px;
-            // 以下三角型設定
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 6px 0 6px 10px;
-            border-color: transparent transparent transparent map-get($grey-color, 600);
-            transition: .2s ease-in-out;
-          }
-          .title-icon.show {
-            transform: rotate(90deg); // 控制去增加這個
-          }
-        }
-        .area-list {
-          @include flex-row-space-between-center;
-          flex-wrap: wrap;
-          gap: 10px;
-          .area-item {
-            font-weight: 500;
-            @include font-button;
-            line-height: 20px;
-            &:hover {
-              color: map-get($grey-color, 400);
-            }
-            &.active {
-              color: map-get($primary-color, 600);
-            }
-          }
-        }
+      flex-wrap: wrap;
+      .card-container {
+        @include card-flex;
       }
     }
   }
 }
 
 $map-height: 600px;
-.map-left {
-  height: $map-height;
-  overflow: auto;
-}
-.map-right {
-  height: $map-height;
-  padding-left: 15px;
-  .map {
-    width: 100%;
-    height: 100%;
-    background-color: map-get($grey-color, 300);
-    border-radius: 8px;
+.map-container {
+  @include flex-column-center-center;
+  flex-direction: column-reverse;
+  @media screen and (min-width: 820px) {
+    @include flex-row-center-center;
+  }
+  .map-left {
+    height: $map-height;
+    @include flex-col(12);
+    @include flex-row-center-center;
+    flex-wrap: wrap;
+    .card-container {
+      @include card-flex;
+    }
+    @media screen and (min-width: 820px) {
+      @include flex-col(4);
+      overflow: auto;
+    }
+  }
+  .map-right {
+    height: $map-height;
+    padding-left: 15px;
+    @include flex-col(12);
+    @media screen and (min-width: 820px) {
+      @include flex-col(8);
+    }
+    .map {
+      width: 100%;
+      height: 100%;
+      background-color: map-get($grey-color, 300);
+      border-radius: 8px;
+      @include flex-row-center-center;
+      @include font-h2;
+      color: map-get($grey-color, 100);
+    }
   }
 }
 
@@ -285,43 +179,4 @@ $map-height: 600px;
 }
 .relative {
   position: relative;
-}
-
-footer {
-  width: 100%;
-  height: 108px;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  background-color: map-get($primary-color, 600);
-  @include flex-row-center-center;
-  .footer {
-    width: 80%;
-    color: map-get($grey-color, 100);
-    @include flex-row-space-between-center;
-    .footer-brand {
-      @include flex-column-center-center;
-      .footer-icon {
-        @include flex-row-center-center;
-        margin-top: 8px;
-        img {
-          margin-right: 6px;
-        }
-      }
-    }
-    .footer-link {
-      width: 432px;
-      @include flex-row-space-between-center;
-      .footer-item {
-        @include flex-column-center-center;
-        a {
-          margin-bottom: 8px;
-          color: map-get($grey-color, 100);
-          &:visited {
-            color: map-get($grey-color, 100);
-          }
-        }
-      }
-    }
-  }
 }

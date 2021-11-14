@@ -11,15 +11,27 @@
   @include flex-row-space-between-center;
   .detail-title {
     @include flex-column-center-baseline;
+    padding: 15px 0px;
+    @include flex-col(8);
+    @include pad-up {
+      @include flex-col(7);
+    }
     .title-text {
-      @include font-h1;
+      @include font-content;
+      @include pad-up {
+        @include font-h1;
+      }
       color: map-get($grey-color, 700);
       padding: 8px 0;
     }
     .detail-comment-block {
       @include flex-row-start-center;
       .detail-stars {
-        margin-right: 11px
+        @include font-caption;
+        margin-right: 5px;
+        @include pad-up {
+          margin-right: 11px;
+        }
       }
       .detail-comment-count {
         @include font-button;
@@ -28,22 +40,66 @@
     }
     .detail-tags {
       @include tags-row;
+      .detail-tag {
+        @include btn-tag-filled;
+      }
     }
   }
   .detail-connect {
+    padding: 15px 10px;
+    @include flex-col(4);
+    @include pad-up {
+      @include flex-col(5);
+    }
     @include tags-row;
+    justify-content: flex-end;
+    .call-btn, .more-btn {
+      @include btn-icon;
+      @include mobile {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    .call-btn {
+      @include btn-filled;
+      font-size: 0;
+      margin-right: 8px;
+      img {
+        margin: 0;
+      }
+      @include screen-up {
+        @include btn-icon-text;
+      }
+      
+    }
+    .more-btn {
+      @include btn-outline;
+    }
   }
 }
 
 $left-padding: 24px;
 .detail-container {
-  @include flex-row-center-center;
-  padding: 24px 0;
+  @include flex-column-center-baseline;
+  flex-direction: column-reverse;
+  @include screen-up {
+    @include flex-row-center-center;
+  }
+  padding: $left-padding 0;
   .detail-left {
-    flex: 5;
+    @include flex-col(12);
+    padding-top: $left-padding;
+    @include screen-up {
+      padding: 0;
+      @include flex-col(5);
+    }
     .detail-left-content {
-      border: 1px solid map-get($grey-color, 300);
-      padding: $left-padding;
+      border: none;
+      padding: 0;
+      @include screen-up {
+        border: 1px solid map-get($grey-color, 300);
+        padding: $left-padding;
+      }
       @include flex-column-start-space-between;
       gap: 20px;
       .detail-content {
@@ -53,8 +109,16 @@ $left-padding: 24px;
   }
   .detail-right {
     border: 8px solid map-get($grey-color, 800);
-    flex: 7;
-    margin: 0 $left-padding;
+    @include flex-col(12);
+    @include screen-up {
+      @include flex-col(7);
+    }
+    margin: 0;
+    width: 100vw;
+    @include screen-up {
+      width: inherit;
+      margin: 0 $left-padding;
+    }
     > img {
       width: 100%;
       height: 100%;
@@ -62,7 +126,13 @@ $left-padding: 24px;
     }
     .imgs-row {
       border-top: 8px solid map-get($grey-color, 800);
-      height: 142px;
+      height: 70px;
+      @include pad {
+        height: 105px;
+      }
+      @include screen-up {
+        height: 142px;
+      }
       margin-top: -2px;  // 消除神秘縫隙
       @include flex-row-center-center;
       div:nth-child(1), div:nth-child(2), div:nth-child(3), div:nth-child(4) {
@@ -101,4 +171,34 @@ $left-padding: 24px;
   @include font-h2;
   color: map-get($grey-color, 300);
   padding: 30px;
+}
+.detail-nearby {
+  .detail-nearby-block {
+    @include flex-row-center-center;
+    .detail-left {
+      @include flex-col(5);
+    }
+    .detail-right {
+      @include flex-col(7);
+      height: 600px;
+      .map {
+        width: 100%;
+        height: 100%;
+        background-color: map-get($grey-color, 300);
+        border-radius: 8px;
+        @include flex-row-center-center;
+        @include font-h2;
+        color: map-get($grey-color, 100);
+      }
+    }
+  }
+}
+.detail-recommend {
+  .recommend-container {
+    @include flex-row-center-center;
+    flex-wrap: wrap;
+    .card-container {
+      @include card-flex;
+    }
+  }
 }

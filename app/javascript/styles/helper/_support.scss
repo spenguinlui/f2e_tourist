@@ -1,5 +1,46 @@
-@import "variables";
+// @import "variables";
+
 // layout
+// RWD
+@mixin full-screen {
+  @media screen and (min-width: 1280px) {
+    @content;
+  }
+}
+@mixin screen-up {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+@mixin screen {
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    @content;
+  }
+}
+@mixin pad-up {
+  @media screen and (min-width: 481px) {
+    @content;
+  }
+}
+@mixin pad {
+  @media screen and (min-width: 481px) and (max-width: 767px) {
+    @content;
+  }
+}
+@mixin mobile {
+  @media(max-width: 480px){
+    @content;
+  }
+}
+
+@mixin mp-not-display {
+  @include mobile {
+    display: none;
+  }
+  @include pad {
+    display: none;
+  }
+}
 
 // flex-box
 // extend mixin 都會掛掉只能一個個刻
@@ -46,6 +87,37 @@
   align-items: space-between;
 }
 
+// 內容的兩側留空
+@mixin content-padding {
+  padding-left: 20px;
+  padding-right: 20px;
+  @include screen {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  @include full-screen {
+    padding-left: 150px;
+    padding-right: 150px;
+  }
+}
+
+// 卡片比例 抓實測感覺
+@mixin card-flex {
+  padding: 15px 10px;
+  @include flex-col(11);
+  @media screen and (min-width: 560px) and (max-width: 920px) {
+    @include flex-col(6);
+  }
+  @media screen and (min-width: 921px) {
+    padding: 15px;
+    @include flex-col(4);
+  }
+  @include full-screen {
+    padding: 15px;
+    @include flex-col(3);
+  }
+}
+
 // 清 float
 @mixin clearfix() {
   &::after {
@@ -55,17 +127,11 @@
   }
 }
 
-// RWD
-@mixin pad {
-  @media screen and (min-width: 481px) and (max-width: 768px) {
-    @content;
-  }
-}
-
-@mixin mobile {
-  @media(max-width: 480px){
-    @content;
-  }
+// 背景
+@mixin benner-background($url) {
+  background-image: url($url);
+  background-size: cover;
+  background-position: center;
 }
 
 // 字型大小
@@ -128,6 +194,18 @@ $font-size-caption: 0.694rem; // 12px
   font-weight: bold;
 }
 
+// 文字 + icon按鈕轉 icon按鈕
+@mixin text-icon-2-icon {
+  @include btn-icon;
+  font-size: 0;
+  img {
+    margin: 0;
+  }
+  @include full-screen{
+    @include btn-icon-text;
+  }
+}
+
 // 隱藏過多文字
 @mixin ellipsis-text($n) {
   overflow: hidden;
@@ -136,28 +214,4 @@ $font-size-caption: 0.694rem; // 12px
   -webkit-line-clamp: $n;
   -webkit-box-orient: vertical;
   white-space: normal;
-}
-
-// component
-@mixin btn {
-  @include flex-row-center-center;
-  @include font-button;
-  border-radius: 63px;
-  cursor: default;
-}
-@mixin btn-tag {
-  @include flex-row-start-center;
-  @include font-caption;
-  border-radius: 21px;
-  padding: 4px 10px;
-  // cursor: default;
-  cursor: pointer;
-}
-
-@mixin tags-row {
-  @include flex-row-start-center;
-  padding: 5px 0;
-  > div {
-    margin-right: 8px;
-  }
 }

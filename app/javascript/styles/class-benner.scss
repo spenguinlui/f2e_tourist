@@ -1,0 +1,158 @@
+// 共用大小 - 圖片是動態寫在元件上
+.class-benner {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  height: $class-benner-height;
+}
+
+.benner-container {
+  margin-top: 60px;
+  padding-top: $section-padding-y;
+  padding-bottom: $section-padding-y;
+  @include content-padding;
+  @include mobile {
+    @include flex-row-center-center;
+  }
+  @include pad {
+    @include flex-row-center-center;
+  }
+
+  background-size: cover;
+  background-position: center;
+
+  height: $class-benner-m-heigh;
+  @include pad-up {
+    height: $class-benner-height;
+  }
+  .benner-title {
+    color: map-get($grey-color, 100);
+  }
+  .benner-btn-container {
+    @include mobile {
+      display: none;
+    }
+    @include pad {
+      display: none;
+    }
+
+    @include flex-row-space-between-center;
+    margin-top: 3px;
+    .left-btn, .right-btn {
+      @include flex-row-center-center;
+      .choose-btn {
+        @include btn-choose;
+        @include btn-outline;
+      }
+      .filter-btn {
+        @include btn-icon-text;
+        @include btn-filled;
+      }
+      .filter-icon-btn {
+        @include btn-icon;
+        @include btn-filled;
+      }
+    }
+    .left-btn > div:nth-child(2), .right-btn > div:nth-child(2) {
+      margin-left: 20px
+    }
+  }
+}
+.benner-m-menu {
+  @include screen-up {
+    display: none;
+  }
+  height: $benner-m-menu-height;
+  padding: 0 10px;
+  @include pad {
+    padding: 0 24px;
+  }
+  @include flex-row-space-between-center;
+  .left-block, .right-block {
+    @include flex-row-center-center;
+    gap: 8px;
+    @include pad {
+      gap: 16px;
+    }
+  }
+  .left-btn {
+    @include btn-choose;
+    @include btn-outline;
+  }
+  .right-btn {
+    @include btn-icon;
+    @include btn-filled;
+  }
+}
+
+.select-area-block {
+  width: 390px;
+  padding: 28px 24px;
+  position: absolute;
+  @include mobile {
+    width: 100vw;
+    position: fixed;
+    top: $nav-heght + ($section-padding-y * 2) + $benner-m-menu-height;
+  }
+  left: 0;
+  top: 40px;
+  background-color: map-get($grey-color, 100);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  z-index: 1;
+  cursor: default;
+  .area-container {
+    height: 400px;
+    overflow: auto;
+    margin-top: 12px;
+    .area {
+      color: map-get($grey-color, 700);
+      padding-top: 12px;
+      .v-area {
+        @include font-caption;
+      }
+      .area-block {
+        border-bottom: 1px solid map-get($grey-color, 300);
+        padding: 7px 0;
+        .area-title {
+          @include flex-row-start-center;
+          padding: 4px 0 7px 0;
+          .title-text {
+            @include font-content;
+          }
+          .title-icon {
+            margin-left: 8px;
+            // 以下三角型設定
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 6px 0 6px 10px;
+            border-color: transparent transparent transparent map-get($grey-color, 600);
+            transition: .2s ease-in-out;
+          }
+          .title-icon.show {
+            transform: rotate(90deg); // 控制去增加這個
+          }
+        }
+        .area-list {
+          @include flex-row-space-between-center;
+          flex-wrap: wrap;
+          gap: 10px;
+          .area-item {
+            font-weight: 500;
+            @include font-button;
+            line-height: 20px;
+            &:hover {
+              color: map-get($grey-color, 400);
+            }
+            &.active {
+              color: map-get($primary-color, 600);
+            }
+          }
+        }
+      }
+    }
+  }
+}

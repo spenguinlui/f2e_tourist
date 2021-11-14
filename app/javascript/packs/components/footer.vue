@@ -2,7 +2,7 @@
   <footer>
     <div class="footer">
       <div class="footer-brand">
-        <img src="../../images/icon/footer-logo.svg" alt="logo圖案">
+        <img src="../../images/icon/footer-logo.svg" alt="logoicon">
         <div class="footer-icon">
           <img src="../../images/icon/facebook.svg" alt="facebookicon">
           <img src="../../images/icon/line.svg" alt="lineicon">
@@ -24,7 +24,7 @@
         </div>
         <div class="footer-item">
           <router-link :to="{ name: 'hotels-list' }">找飯店</router-link>
-          <router-link :to="{ name: 'theme' }">主題活動</router-link>
+          <router-link :to="{ name: 'theme' }">嚴選住宿</router-link>
         </div>
         <div class="footer-item">
           <router-link :to="{ name: 'login' }">會員登入</router-link>

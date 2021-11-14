@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <div class="content">
-      <div v-for="item in dataList" :key="item.ID" class="col-xl-4 p-15">
-        <Card :item="item" :type="dataType" :classType="'commonCard'"/>
-      </div>
+  <div class="content">
+    <div v-for="item in dataList" :key="item.ID" class="card-container">
+      <Card :item="item" :type="dataType" :classType="'commonCard'"/>
     </div>
   </div>
 </template>

@@ -1,12 +1,10 @@
 <template>
   <div :class="`search-bar ${sizeType}`">
     <input v-model="keyword" @keyup.enter="goSearch" :class="size === 'g' ? (size === 'xl' ? 'text-grey-500' : 'h5') : ''" type="text" placeholder="想要去哪？">
-    <!-- <input v-if="size === 's'" type="text" >
-    <input v-if="size === 'g'" class="text-grey-500" type="text" placeholder="想要去哪？">
-    <input v-if="size === 'xl'" type="text" calss="h5" placeholder="想要去哪？"> -->
     <div @click="goSearch">
-      <img v-if="size !== 'xl'" calss="h5" src="../../images/icon/search.svg" alt="搜尋">
-      <img v-if="size === 'xl'" calss="h5" src="../../images/icon/search-xl.svg" alt="搜尋">
+      <img v-if="size !== 'xl'" src="../../images/icon/search.svg" alt="搜尋">
+      <img v-if="size === 'xl'" class="mp-display" src="../../images/icon/search.svg" alt="搜尋">
+      <img v-if="size === 'xl'" class="mp-not-display" src="../../images/icon/search-xl.svg" alt="搜尋">
     </div>
   </div>
 </template>
@@ -35,7 +33,7 @@
         if (event.isComposing) { return }  // 還在輸入中文別要資料
         const keyword = this.keyword;
         this.$store.dispatch("filterDataListWithKeyword", keyword);
-        this.$router.push(`search?keyword=${keyword}`);
+        this.$router.push(`/search?keyword=${keyword}`);
       }
     }
   }

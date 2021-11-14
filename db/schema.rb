@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_13_073017) do
+ActiveRecord::Schema.define(version: 2021_11_14_081247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2021_11_13_073017) do
     t.integer "enter_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "ptx_data_type", default: "0"
+    t.integer "favorite_count", default: 0
   end
 
   create_table "tags", force: :cascade do |t|

@@ -1,35 +1,66 @@
 <template>
   <div>
     <div class="benner-container" :style="{ backgroundImage: bgImage }">
-      <h1 class="title">{{ classType_zh }}列表</h1>
+      <h1 class="benner-title">{{ classType_zh }}列表</h1>
       <div class="benner-btn-container">
         <div class="left-btn">
           <div class="relative">
-            <div class="btn-choose btn-outline" @click.stop.prevent="showSelectBlock">選擇地區</div>
+            <div class="choose-btn" @click.stop.prevent="showSelectBlock">選擇地區</div>
             <div v-show="areaSelectBlockVisible" ref="selectAreaBlockContainer">
               <SelectAreaBlock :hideSelectBlock="hideSelectBlock"/>
             </div>
           </div>
-          <div class="btn-choose btn-outline">選擇日期</div>
+          <div class="choose-btn">選擇日期</div>
         </div>
         <div class="right-btn">
-          <button class="btn-icon-text btn-filled">篩選<img src="../../images/icon/filter-f.svg" alt="切換列表icon"></button>
+          <button class="filter-btn">篩選<img src="../../images/icon/filter-f.svg" alt="切換列表icon"></button>
           <div v-if="classType === 'scenicspots'" @click="isMap = !isMap">
-            <router-link v-show="isMap" :to="{ name: 'scenicspots-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
-            <router-link v-show="!isMap" :to="{ name: 'scenicspots-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
+            <router-link v-show="isMap" :to="{ name: 'scenicspots-list' }" class="filter-icon-btn"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+            <router-link v-show="!isMap" :to="{ name: 'scenicspots-map' }" class="filter-icon-btn"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
           <div v-if="classType === 'activities'" @click="isMap = !isMap">
-            <router-link v-show="isMap" :to="{ name: 'activities-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
-            <router-link v-show="!isMap" :to="{ name: 'activities-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
+            <router-link v-show="isMap" :to="{ name: 'activities-list' }" class="filter-icon-btn"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+            <router-link v-show="!isMap" :to="{ name: 'activities-map' }" class="filter-icon-btn"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
           <div v-if="classType === 'hotels'" @click="isMap = !isMap">
-            <router-link v-show="isMap" :to="{ name: 'hotels-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
-            <router-link v-show="!isMap" :to="{ name: 'hotels-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
+            <router-link v-show="isMap" :to="{ name: 'hotels-list' }" class="filter-icon-btn"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+            <router-link v-show="!isMap" :to="{ name: 'hotels-map' }" class="filter-icon-btn"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
           <div v-if="classType === 'restaurants'" @click="isMap = !isMap">
-            <router-link v-show="isMap" :to="{ name: 'restaurants-list' }" class="btn-icon btn-filled"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
-            <router-link v-show="!isMap" :to="{ name: 'restaurants-map' }" class="btn-icon btn-filled"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
+            <router-link v-show="isMap" :to="{ name: 'restaurants-list' }" class="filter-icon-btn"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+            <router-link v-show="!isMap" :to="{ name: 'restaurants-map' }" class="filter-icon-btn"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="benner-m-menu">
+      <div class="left-block">
+        <div class="relative">
+          <div class="left-btn" @click.stop.prevent="showSelectBlock">選擇地區</div>
+          <div v-show="areaSelectBlockVisible" ref="selectAreaBlockContainer">
+            <SelectAreaBlock :hideSelectBlock="hideSelectBlock"/>
+          </div>
+        </div>
+        <div class="left-btn">選擇日期</div>
+      </div>
+
+      <div class="right-block">
+        <div class="right-btn"><img src="../../images/icon/filter-f.svg" alt="切換列表icon"></div>
+        <div v-if="classType === 'scenicspots'" @click="isMap = !isMap">
+          <router-link v-show="isMap" :to="{ name: 'scenicspots-list' }" class="right-btn"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+          <router-link v-show="!isMap" :to="{ name: 'scenicspots-map' }" class="right-btn"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
+        </div>
+        <div v-if="classType === 'activities'" @click="isMap = !isMap">
+          <router-link v-show="isMap" :to="{ name: 'activities-list' }" class="right-btn"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+          <router-link v-show="!isMap" :to="{ name: 'activities-map' }" class="right-btn"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
+        </div>
+        <div v-if="classType === 'hotels'" @click="isMap = !isMap">
+          <router-link v-show="isMap" :to="{ name: 'hotels-list' }" class="right-btn"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+          <router-link v-show="!isMap" :to="{ name: 'hotels-map' }" class="right-btn"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
+        </div>
+        <div v-if="classType === 'restaurants'" @click="isMap = !isMap">
+          <router-link v-show="isMap" :to="{ name: 'restaurants-list' }" class="right-btn"><img src="../../images/icon/list-f.svg" alt="切換列表icon"></router-link>
+          <router-link v-show="!isMap" :to="{ name: 'restaurants-map' }" class="right-btn"><img src="../../images/icon/map-f.svg" alt="切換地圖icon"></router-link>
         </div>
       </div>
     </div>
