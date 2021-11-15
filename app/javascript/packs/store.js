@@ -14,6 +14,7 @@ export const storeObject = {
     dataDetail: {},
     heartIsLoading: false, // 加入我的最愛是否程序中
     recommendList: [],     // 只會有 3筆，當前類型按讚次數排名前三
+    favorites: []
   },
   getters: {
     areaList: state => state.areaList,
@@ -26,7 +27,8 @@ export const storeObject = {
     searchData: state => state.searchData,
     dataDetail: state => state.dataDetail,
     heartIsLoading: state => state.heartIsLoading,
-    recommendList: state => state.recommendList
+    recommendList: state => state.recommendList,
+    favorites: state => state.favorites
   },
   mutations: {
     GET_ALL_AREAS(state, areaList) {
@@ -72,6 +74,15 @@ export const storeObject = {
     },
     GET_RECOMMEND_LIST(state, recommendList) {
       state.recommendList = recommendList;
+    },
+    SET_FAVORITES(state, favorites) {
+      state.favorites = favorites;
+    },
+    ADD_FAVORITES(state, dataId) {
+      state.favorites.push(dataId);
+    },
+    REMOVE_FAVORITES(state, dataId) {
+      state.favorites.splice(state.favorites.indexOf(dataId), 1)
     }
   },
   actions: {
@@ -174,31 +185,31 @@ export const storeObject = {
     },
 
     // 功能觸發
-    changeFavoriteToData({ commit }, dataId) {
-      this.state.heartIsLoading = true
-      commit("UPDATE_HEART_LOADING", true);
-      let heartArray = JSON.parse(localStorage.getItem("touristHeart"));
-      // console.log("得到的", heartArray)
-      let isHeart = (heartArray.indexOf(dataId) >= 0);
+    getFavorites({ commit }) {
+      const heartArray = JSON.parse(localStorage.getItem("touristHeart"));
+      if (heartArray) {
+        commit("SET_FAVORITES", heartArray);
+      }
+    },
+
+    changeFavoriteToData({ commit }, { dataId, add }) {
+      this.state.heartIsLoading = true;
       Rails.ajax({
-        url: `/api/v1/local_data/${dataId}?heart=${isHeart}`,
+        url: `/api/v1/local_data/${dataId}?heart=${add}`,
         type: 'PATCH',
         dataType: 'json',
         success: res => {
-          // console.log(res)
           if(res.status) {
-            if (!isHeart) {
-              heartArray.push(dataId);
-              // console.log("要增加的", JSON.stringify(heartArray))
-              localStorage.setItem("touristHeart", JSON.stringify(heartArray));
-              commit("UPDATE_HEART_LOADING", false);
+            if (add) {
+              commit("ADD_FAVORITES", dataId);
             } else {
-              heartArray.pop(dataId);
-              // console.log("要移除的", JSON.stringify(heartArray))
-              localStorage.setItem("touristHeart", JSON.stringify(heartArray));
-              commit("UPDATE_HEART_LOADING", false);
+              commit("REMOVE_FAVORITES", dataId);
             }
+            localStorage.setItem("touristHeart", JSON.stringify(this.state.favorites));
+          } else {
+            console.log("更改失敗！");
           }
+          commit("UPDATE_HEART_LOADING", false);
         },
         error: error => {
           console.log(error);            

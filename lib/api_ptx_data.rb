@@ -20,32 +20,7 @@ class ApiPtxData
       uri: "https://link.motc.gov.tw/v2/Basic/County?$select=County,CountyName&$format=JSON",
       gzip: true
     ).json
-    town_data = [
-      {
-        area: "北部",
-        citys: []
-      },
-      {
-        area: "中部",
-        citys: []
-      },
-      {
-        area: "南部",
-        citys: []
-      },
-      {
-        area: "東部",
-        citys: []
-      },
-      {
-        area: "離島",
-        citys: []
-      },
-      {
-        area: "其他",
-        citys: []
-      },
-    ]
+    town_data = get_town_data_array
     citys.map do |city|
       city_name = city["County"]
       city_name_zh = city["CountyName"]
@@ -58,49 +33,26 @@ class ApiPtxData
       south = ["Tainan", "Kaohsiung", "YunlinCounty", "ChiayiCounty", "PingtungCounty"]
       east = ["YilanCounty", "HualienCounty", "TaitungCounty"]
       outside = ["KinmenCounty", "PenghuCounty", "LienchiangCounty"]
+      city_obj = {
+        city: city_name,
+        city_name: city_name_zh,
+        is_open: (city_name == "Taipei" ? true : false),
+        dists: dists_data
+      }
       case city_name
       when *nouth
-        town_data[0][:citys] << {
-          city: city_name,
-          city_name: city_name_zh,
-          is_open: (city_name == "Taipei" ? true : false),
-          dists: dists_data
-        }
+        city_obj[:is_open] = true if city_name == "Taipei"
+        town_data[0][:citys] << city_obj
       when *middle
-        town_data[1][:citys] << {
-          city: city_name,
-          city_name: city_name_zh,
-          is_open: false,
-          dists: dists_data
-        }
+        town_data[1][:citys] << city_obj
       when *south
-        town_data[2][:citys] << {
-          city: city_name,
-          city_name: city_name_zh,
-          is_open: false,
-          dists: dists_data
-        }
+        town_data[2][:citys] << city_obj
       when *east
-        town_data[3][:citys] << {
-          city: city_name,
-          city_name: city_name_zh,
-          is_open: false,
-          dists: dists_data
-        }
+        town_data[3][:citys] << city_obj
       when *outside
-        town_data[4][:citys] << {
-          city: city_name,
-          city_name: city_name_zh,
-          is_open: false,
-          dists: dists_data
-        }
+        town_data[4][:citys] << city_obj
       else
-        town_data[5][:citys] << {
-          city: city_name,
-          city_name: city_name_zh,
-          is_open: false,
-          dists: dists_data
-        }
+        town_data[5][:citys] << city_obj
       end
     end
     town_data
@@ -153,27 +105,6 @@ class ApiPtxData
       gzip: true, # 是否壓縮資料
     ).json
   end
-
-  # 城市列表
-  # "https://link.motc.gov.tw/v2/Basic/County?$format=JSON"
-
-  # 景觀列表
-  # "https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$format=JSON"
-
-  # 活動列表
-  # "https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity?$format=JSON"
-
-  # 餐廳列表
-  # "https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant?$format=JSON"
-
-  # 住宿列表
-  # "https://ptx.transportdata.tw/MOTC/v2/Tourism/Hotel?$format=JSON"
-
-  # 台灣好行-所有列表
-  # "https://ptx.transportdata.tw/MOTC/v2/Tourism/Bus/Route/TaiwanTrip?$format=JSON"
-
-  # 台灣好行-指定路線動態(含到站時間)
-  # "https://ptx.transportdata.tw/MOTC/v2/Tourism/Bus/EstimatedTimeOfArrival/TaiwanTrip/#{路線中文名}?$format=JSON"
 
   private
 
@@ -232,28 +163,40 @@ class ApiPtxData
     puts "parse json response error!, #{e}"
     nil
   end
+
+  def get_town_data_array
+    [
+      { area: "北部", citys: [] },
+      { area: "中部", citys: [] },
+      { area: "南部", citys: [] },
+      { area: "東部", citys: [] },
+      { area: "離島", citys: [] },
+      { area: "其他", citys: [] }
+    ]
+  end
+
+  def get_keyowrds_query(query_columns, keywords)
+    if query_columns.is_a?(Array) && keywords.is_a?(Array)
+      add_count = 0
+      query_string = ""
+    
+      keywords.map do |keyword|
+        query_columns.map do |query_column|
+          if add_count == 0
+            query_string += "contains(#{query_column}, '#{keyword}')"
+          else
+            query_string += " or contains(#{query_column}, '#{keyword}')"
+          end
+          add_count+=1
+        end  
+      end
+      query_string
+    else
+      return nil
+    end
+  end
 end
 
 # execute and print response
 # puts ApiPtxData.new.get_tra_station
 
-def get_keyowrds_query(query_columns, keywords)
-  if query_columns.is_a?(Array) && keywords.is_a?(Array)
-    add_count = 0
-    query_string = ""
-  
-    keywords.map do |keyword|
-      query_columns.map do |query_column|
-        if add_count == 0
-          query_string += "contains(#{query_column}, '#{keyword}')"
-        else
-          query_string += " or contains(#{query_column}, '#{keyword}')"
-        end
-        add_count+=1
-      end  
-    end
-    query_string
-  else
-    return nil
-  end
-end

@@ -4,9 +4,9 @@
       <div class="card-img">
         <img v-if="!item.Picture || !item.Picture.PictureUrl1" src="../../images/empty-img.png" alt="no-imag'">
         <img v-if="item.Picture && item.Picture.PictureUrl1" :src="item.Picture.PictureUrl1" :alt="item.Picture.PictureDescription1">
-        <div :class="heart ? 'card-icon filled' : 'card-icon'" @click.prevent.stop="changeFavorite(item.ID)">
-          <img v-show="heart" src="../../images/icon/heart-filled.svg" alt="加入我的最愛icon">
-          <img v-show="!heart" src="../../images/icon/heart-outline.svg" alt="加入我的最愛icon">
+        <div :class="favorites.includes(item.ID) ? 'card-icon filled' : 'card-icon'" @click.prevent.stop="changeFavorite(item.ID, !favorites.includes(item.ID))">
+          <img v-show="favorites.includes(item.ID)" src="../../images/icon/heart-filled.svg" alt="加入我的最愛icon">
+          <img v-show="!favorites.includes(item.ID)" src="../../images/icon/heart-outline.svg" alt="加入我的最愛icon">
         </div>
       </div>
       <div class="card-content">
@@ -44,32 +44,19 @@
       }
     },
     computed: {
-      ...mapGetters(['heartIsLoading'])
+      ...mapGetters(['favorites'])
     },
     methods: {
       toDetail(id) {
         this.$router.push(`/detail/${id}/${this.type}`);
       },
-      changeFavorite(id) {
-        if (!this.$store.getters.heartIsLoading) {
-          // 要 getter heartIsLoading=false 才能改變
-          this.$store.dispatch("changeFavoriteToData", id);
-          this.heart = !this.heart;
-        }
-      },
-      initFavorite() {
-        const id = this.item.ID;
-        const heartArray = JSON.parse(localStorage.getItem("touristHeart"));
-        if (heartArray) {
-          localStorage.setItem("touristHeart", JSON.stringify([]));
-          if (heartArray.indexOf(id) >= 0) {
-            this.heart = true;
-          }
-        }
+      changeFavorite(id, add) {
+        console.log(add)
+        !this.$store.getters.heartIsLoading && this.$store.dispatch("changeFavoriteToData", { dataId: id, add: add });
       }
     },
     created() {
-      this.initFavorite();
+      
     }
   }
 </script>
