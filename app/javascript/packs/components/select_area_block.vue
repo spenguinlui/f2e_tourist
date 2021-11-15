@@ -42,9 +42,6 @@
       filterCityData(townName) {
         this.$store.dispatch("filterDataListWithTown", townName);
         this.hideSelectBlock();
-      },
-      getCityTownList() {
-        this.$store.dispatch("getCityTownList");
       }
     },
     computed: {
@@ -52,9 +49,6 @@
     },
     components: {
       GlobalSearch
-    },
-    created() {
-      this.getCityTownList();
     }
   }
 </script>

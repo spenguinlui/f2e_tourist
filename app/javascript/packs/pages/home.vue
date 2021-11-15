@@ -80,9 +80,15 @@ export default {
     GlobalSearch,
     Card
   },
+  methods: {
+    getCityTownList() {
+      this.$store.dispatch("getCityTownList");
+    }
+  },
   created() {
     this.$store.dispatch("getHotDataList");
     this.$store.dispatch("getRandomThemeDataList");
+    this.getCityTownList();
   }
 }
 </script>
